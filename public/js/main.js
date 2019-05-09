@@ -98,7 +98,7 @@ function start(comp){
             comp.update(deltaTime);
             comp.draw(canvas);
         }else{
-            
+
         }
     }
     
@@ -107,5 +107,3 @@ function start(comp){
 
 initialize().then((comp) => start(comp));
 
-
-  
