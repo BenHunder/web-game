@@ -23,9 +23,11 @@ export default class Layer{
     }
 
     update(deltaTime){
-        this.cells.forEach(cell => {
-            cell.update(deltaTime);
-        })
+        if(!(this.cells === undefined)){
+            this.cells.forEach(cell => {
+                cell.update(deltaTime);
+            });
+        }
     }
 
 }

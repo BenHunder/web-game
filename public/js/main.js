@@ -1,7 +1,7 @@
 import Compositor from './Compositor.js';
 import {loadLevel, loadSpawners} from './loaders.js';
 import {loadSprites} from './sprites.js';
-import {createLayer1, createLayer2, createLayer3, createAllCells} from './entities.js';
+import {createLayer1, createLayer2, createLayer3, createPauseLayer, createAllCells} from './layers.js';
 import Timer from './Timer.js';
 import Controller from "./Controller.js";
 import Cell from './Cell.js';
@@ -34,19 +34,21 @@ async function initialize(){
     return Promise.all([
         loadSprites(),
         loadSpawners('testSpawnerObject'),
+        createPauseLayer(),
         createLayer1(cellMap),
         createLayer2(cellMap),
         createLayer3(cellMap)
     ])
-    .then(([sprts, spawners, layer1, layer2, layer3]) => {
+    .then(([sprts, spawners, pauseLayer, layer1, layer2, layer3]) => {
         sprites = sprts;
         spawner = new Spawner(cellMap, sprites, spawners);
 
         const comp = new Compositor();
-    
+        
         comp.layers.push(layer1);
         comp.layers.push(layer2);
         comp.layers.push(layer3);
+        comp.setPauseLayer(pauseLayer);
 
         player1 = new Player();
         const basicWeapon = new Weapon("basicWeapon", 10);
@@ -98,7 +100,7 @@ function start(comp){
             comp.update(deltaTime);
             comp.draw(canvas);
         }else{
-
+            comp.drawPauseLayer(canvas);
         }
     }
     
