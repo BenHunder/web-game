@@ -1,4 +1,5 @@
 import {Trait} from '../Sprite.js';
+import {soundBoard} from '../main.js';
 
 export default class Attack extends Trait {
     constructor(cell){
@@ -8,6 +9,8 @@ export default class Attack extends Trait {
     }
 
     start(weapon){
+        soundBoard.play('bonkEnemy');
+
         this.cell.sprite.health -= weapon.power;
         if(this.cell.sprite.health <= 0){
             this.cell.attack.kill();

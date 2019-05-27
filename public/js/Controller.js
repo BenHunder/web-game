@@ -14,7 +14,7 @@ export default class Controller{
     handleEvent(event){
         const {keyCode} = event;
         
-         console.log(event);
+        //console.log(event);
 
         if(!this.keyMap.has(keyCode)){
             return;

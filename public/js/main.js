@@ -13,6 +13,7 @@ let log = console.log;
 const canvas = document.getElementById('gameCanvas').getContext('2d');
 
 let cellMap;
+export let soundBoard;
 let spawner;
 let sprites;
 
@@ -62,8 +63,9 @@ async function initialize(){
         createLayer3(cellMap),
         createLayer4()
     ])
-    .then(([sprts, spawners, soundBoard, pauseLayer, layer1, layer2, layer3, layer4]) => {
+    .then(([sprts, spawners, sndBrd, pauseLayer, layer1, layer2, layer3, layer4]) => {
         sprites = sprts;
+        soundBoard = sndBrd;
         spawner = new Spawner(cellMap, sprites, spawners);
         log("soundBoard", soundBoard);
 
@@ -124,7 +126,6 @@ async function initialize(){
             input.setMapping(key.charCodeAt(0)-32, keyState => {
                 if(keyState){
                     //cell.attack.start();
-                    soundBoard.play("bonkEnemy");
                     cell.interact(onWeapon ? player1.weapon : player1.food);
                 }else{
                     cell.released();

@@ -1,4 +1,5 @@
 import {Trait} from '../Sprite.js';
+import {soundBoard} from '../main.js';
 
 export default class Feed extends Trait {
     constructor(cell){
@@ -8,6 +9,8 @@ export default class Feed extends Trait {
     }
 
     start(food){
+        soundBoard.play('feed');
+
         this.cell.sprite.hunger += food.power;  
         if(this.cell.sprite.hunger > this.cell.sprite.maxHunger){
             this.cell.sprite.hunger = this.cell.sprite.maxHunger;
