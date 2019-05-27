@@ -126,7 +126,7 @@ async function initialize(){
             input.setMapping(key.charCodeAt(0)-32, keyState => {
                 if(keyState){
                     //cell.attack.start();
-                    soundBoard.play('bonkEnemy');
+                    //soundBoard.play('bonkEnemy');
                     cell.interact(onWeapon ? player1.weapon : player1.food);
                 }else{
                     cell.released();
