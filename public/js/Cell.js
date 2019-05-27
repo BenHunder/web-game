@@ -27,7 +27,7 @@ export default class Cell{
 
     draw(context){
         if(this.depth < this.maxDepth){
-            //context.drawImage(this.buffer, this.center.x, this.center.y+this.depth, 64, 64);
+            context.drawImage(this.buffer, 0, 0+this.depth);
             if(!(this.sprite === undefined)){
                 let x = this.center.x - 32/2;
                 let y = this.center.y + this.depth - 32;
@@ -35,10 +35,10 @@ export default class Cell{
                 context.drawImage(this.sprite.buffer, 0, 0, 270, 238, x, y, 32, 32);
                 context.strokeStyle = this.sprite.isFriendly ? '#008000':'#f00';  // some color/style
                 context.lineWidth = 2;         // thickness
-                context.strokeRect(x, y, 32, 32);
+                //context.strokeRect(x, y, 32, 32);
             }
         }
-        context.fillText(this.name, this.center.x - 20, this.center.y + 10);
+        //context.fillText(this.name, this.center.x - 20, this.center.y + 10);
     }
 
     update(deltaTime){
@@ -78,5 +78,12 @@ export default class Cell{
         this.sprite = sprite;
     }
 
-    resetCell(){};
+    reset(){
+        this.depth = 50;
+        this.maxDepth = 50;
+        this.speed = 50;
+        this.duringSinkingAnimation = false;
+        this.isActive = false;
+        this.sprite = undefined;
+    };
 }

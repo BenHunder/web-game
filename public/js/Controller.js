@@ -7,12 +7,14 @@ export default class Controller{
         this.keyMap = new Map();
     }
 
-    addMapping(keyCode, callback){
+    setMapping(keyCode, callback){
         this.keyMap.set(keyCode, callback);
     }
 
     handleEvent(event){
         const {keyCode} = event;
+        
+         console.log(event);
 
         if(!this.keyMap.has(keyCode)){
             return;
