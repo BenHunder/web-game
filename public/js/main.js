@@ -29,11 +29,11 @@ let soundNames = [
     },
     {
         "filename": "sfx3.wav", 
-        "name": "kill"
+        "name": "feed"
     },
     {
         "filename": "sfx4.wav", 
-        "name": "feed"
+        "name": "kill"
     }
 ];
 let player1;
@@ -67,7 +67,7 @@ async function initialize(){
         sprites = sprts;
         soundBoard = sndBrd;
         spawner = new Spawner(cellMap, sprites, spawners);
-        log("soundBoard", soundBoard);
+        log(soundBoard);
 
         const comp = new Compositor();
         
@@ -126,6 +126,7 @@ async function initialize(){
             input.setMapping(key.charCodeAt(0)-32, keyState => {
                 if(keyState){
                     //cell.attack.start();
+                    soundBoard.play('bonkEnemy');
                     cell.interact(onWeapon ? player1.weapon : player1.food);
                 }else{
                     cell.released();

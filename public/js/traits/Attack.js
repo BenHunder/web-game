@@ -9,7 +9,7 @@ export default class Attack extends Trait {
     }
 
     start(weapon){
-        soundBoard.play('bonkEnemy');
+        //soundBoard.play('bonkEnemy');
 
         this.cell.sprite.health -= weapon.power;
         if(this.cell.sprite.health <= 0){
@@ -18,6 +18,7 @@ export default class Attack extends Trait {
     }
 
     kill(){
+        //soundBoard.play('kill');
         this.cell.duringSinkingAnimation = true;
     }
 

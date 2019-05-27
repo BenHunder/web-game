@@ -48,9 +48,20 @@ export function loadSprites(){
 //puts all promises from calling loadSounds in array and resloves together.
 //not sure if this makes sense to do with audio elements, but I just want this function to wait until all audio is loaded
 export async function loadSounds(soundNames){
-    const soundBoard = new SoundBoard();
+    //this is the number of audio elements that will be created for each sound. the higher n, the greater the polyphony, the greater the load time
+    const n = 3;
 
-    const promisesArray = soundNames.map(soundName => {
+    let soundNamesTimesN = [];
+
+    soundNames.forEach(soundName => {
+        for(let i=0; i<n; i++){
+            soundNamesTimesN.push(soundName);
+        }
+    })
+    
+    const soundBoard = new SoundBoard(n);
+
+    const promisesArray = soundNamesTimesN.map(soundName => {
         return loadSound('/sfx/' + soundName.filename)
         .then(audio => {
             soundBoard.define(soundName.name, audio);
