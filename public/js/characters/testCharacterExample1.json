@@ -1,0 +1,30 @@
+{
+    "name": "testCharacter",
+    "spriteSheetLocation": "/img/character test.png",
+    "frames": [
+        {
+            "name": "idle",
+            "rect": [0, 0, 50, 50]
+        },
+        {
+            "name": "attack-1",
+            "rect": [50, 0, 50, 50]
+        },
+        {
+            "name": "attack-2",
+            "rect": [100, 0, 50, 50]
+        },
+        {
+            "name": "attack-3",
+            "rect": [150, 0, 50, 50]
+        }
+    ],
+    "sounds": {
+        "idle": "/sfx/testCharacterIdle.wav",
+        "attack": "/sfx/testCharacterAttack1.wav"
+    },
+    "health": 30,
+    "height": 50,
+    "width": 50
+
+}

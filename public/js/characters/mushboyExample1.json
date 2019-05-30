@@ -1,0 +1,31 @@
+{
+    "name": "mushboy",
+    "spriteSheetLocation": "/img/mushboy.png",
+    "frames": [
+        {
+            "name": "idle",
+            "rect": [0, 0, 50, 50]
+        },
+        {
+            "name": "attack-1",
+            "rect": [50, 0, 50, 50]
+        },
+        {
+            "name": "attack-2",
+            "rect": [100, 0, 50, 50]
+        },
+        {
+            "name": "attack-3",
+            "rect": [150, 0, 50, 50]
+        }
+    ],
+    "sounds": {
+        "idle": "/sfx/mushboyIdle.wav",
+        "attack": "/sfx/mushboyAttack1.wav"
+    },
+    "traits": ["superGrowth", "poisonPunch"],
+    "health": 47,
+    "height": 50,
+    "width": 50
+
+}
