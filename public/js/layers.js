@@ -24,7 +24,7 @@ export function createPauseLayer(){
 
     return loadImage('/img/PauseScreenMockUp.png').then(img => {
         buffer.getContext('2d').drawImage(img, 0, 0);
-        return new Layer(5, undefined, buffer);
+        return new Layer(5, null, buffer);
     });
 }
 
@@ -143,7 +143,7 @@ export function createLayer3(cellMap){
 }
 
 export function createLayer4(){
-    return createLayer('4', undefined).then(layer => {
+    return createLayer('4', null).then(layer => {
         return layer;
     });
 }

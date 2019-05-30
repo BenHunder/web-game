@@ -17,7 +17,7 @@ export default class Cell{
         this.speed = 50;
         this.duringSinkingAnimation = false;
         this.isActive = false;
-        this.sprite = undefined;
+        this.sprite = null;
 
         this.traits = [];
 
@@ -94,6 +94,6 @@ export default class Cell{
         this.speed = 50;
         this.duringSinkingAnimation = false;
         this.isActive = false;
-        this.sprite = undefined;
+        this.sprite = null;
     };
 }

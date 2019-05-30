@@ -10,11 +10,11 @@ export default class Layer{
     }
 
     draw(context){
-        if(!(this.buffer === undefined)){
+        if(this.buffer){
             context.drawImage(this.buffer, 0, 0);
         }
 
-        if(!(this.cells === undefined)){
+        if(this.cells){
             this.cells.forEach(cell => {
                 cell.draw(context);
             });
@@ -23,7 +23,7 @@ export default class Layer{
     }
 
     update(deltaTime){
-        if(!(this.cells === undefined)){
+        if(this.cells){
             this.cells.forEach(cell => {
                 cell.update(deltaTime);
             });
