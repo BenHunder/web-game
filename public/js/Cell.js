@@ -4,7 +4,6 @@ import Spawn from './traits/Spawn.js';
 import Weapon from './Weapon.js';
 import Food from './Food.js';
 import { soundBoard } from './main.js';
-import { spriteBoard } from './main.js';
 
 export default class Cell{
     constructor(name, center, buffer){

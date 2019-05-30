@@ -13,8 +13,12 @@ let log = console.log;
 const canvas = document.getElementById('gameCanvas').getContext('2d');
 
 let cellMap;
-export let soundBoard;
 let spawner;
+
+//TODO
+//these might eventually be contained in sprite class? a sprite will need it's own sprite sheet (for each of the animation frames). And I guess it will have its own sounds, so it will need it's own sound board as well.
+//the thing is... each sprite of the SAME TYPE can share a sprite sheet and sound board, but they can't share health and stuff
+export let soundBoard;
 export let spriteBoard;
 
 //TODO probably move to another file later

@@ -6,7 +6,6 @@ export default class Spawner{
     constructor(cellMap, sprites, spawners){
         this.cellMap = cellMap;
         this.sprites = sprites
-        //TODO make the timing irregular
         this.spawnVariance;
         this.spawnRate;
         this.counter = 0;
