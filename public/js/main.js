@@ -15,7 +15,7 @@ const canvas = document.getElementById('gameCanvas').getContext('2d');
 let cellMap;
 export let soundBoard;
 let spawner;
-let sprites;
+export let spriteBoard;
 
 //TODO probably move to another file later
 let soundNames = [
@@ -63,11 +63,10 @@ async function initialize(){
         createLayer3(cellMap),
         createLayer4()
     ])
-    .then(([sprts, spawners, sndBrd, pauseLayer, layer1, layer2, layer3, layer4]) => {
-        sprites = sprts;
+    .then(([sprites, spawners, sndBrd, pauseLayer, layer1, layer2, layer3, layer4]) => {
+        spriteBoard = sprites;
         soundBoard = sndBrd;
-        spawner = new Spawner(cellMap, sprites, spawners);
-        log(soundBoard);
+        spawner = new Spawner(cellMap, spriteBoard, spawners);
 
         const comp = new Compositor();
         

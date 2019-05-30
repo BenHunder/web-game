@@ -37,10 +37,10 @@ export function loadSpawners(name){
 
 //async function that loads character sprite sheet and defines characters
 export function loadSprites(){
-    return loadImage('/img/character test.png')
+    return loadImage('/img/mushboy.png')
     .then(image => {
-        const sprites = new SpriteSheet(image, 16, 16);
-        sprites.define('test-sprite', 0, 0, 270, 238);
+        const sprites = new SpriteSheet(image, 50, 50);
+        sprites.define('idle', 0, 0, 50, 50);
         return sprites
     })
 }

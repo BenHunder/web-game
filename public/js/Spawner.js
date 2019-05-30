@@ -49,7 +49,7 @@ export default class Spawner{
             const cellPair = availableCells[i];
             const cell = cellPair[1];
 
-            const sprite = new Sprite(this.sprites.getBuffer('test-sprite'));
+            const sprite = new Sprite(this.sprites);
             sprite.isFriendly = properties.isFriendly;
             if(!cell.isActive){
                 cell.setSprite(sprite);
@@ -68,7 +68,7 @@ export default class Spawner{
             const cellPair = availableCells[i];
             const cell = cellPair[1];
 
-            const sprite = new Sprite(this.sprites.getBuffer('test-sprite'));
+            const sprite = new Sprite(this.sprites);
             const j = getRandomInt(10);
             if(j<2){sprite.isFriendly = true;}
             if(!cell.isActive){

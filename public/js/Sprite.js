@@ -11,8 +11,10 @@ export class Trait {
 }
 
 export default class Sprite{
-    constructor(buffer){
-        this.buffer = buffer;
+    constructor(spriteSheet){
+        this.spriteSheet = spriteSheet;
+        this.width = 50;
+        this.height = 50;
         this.health = 20;
         this.hunger = 20;
         this.maxHunger = 20;
@@ -33,4 +35,8 @@ export default class Sprite{
         })
     } 
 
+    draw(context, name, x, y){
+        const buffer = this.spriteSheet.getBuffer(name);
+        context.drawImage(buffer, x, y);
+    }
 }

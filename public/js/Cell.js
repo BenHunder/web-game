@@ -4,6 +4,7 @@ import Spawn from './traits/Spawn.js';
 import Weapon from './Weapon.js';
 import Food from './Food.js';
 import { soundBoard } from './main.js';
+import { spriteBoard } from './main.js';
 
 export default class Cell{
     constructor(name, center, buffer){
@@ -26,30 +27,36 @@ export default class Cell{
         
     }
 
+    //TODO if draw coordinates aren't whole numbers the tile/sprites will look blurry. using math.ceil here to avoid that, but I wonder if there is a better solution
     draw(context){
         if(this.depth < this.maxDepth){
-            context.drawImage(this.buffer, 0, 0+this.depth);
-            if(!(this.sprite === undefined)){
-                let x = this.center.x - 32/2;
-                let y = this.center.y + this.depth - 32;
-                //context.drawImage(this.sprite.buffer, x, y, 270, 238);
-                context.drawImage(this.sprite.buffer, 0, 0, 270, 238, x, y, 32, 32);
-                context.strokeStyle = this.sprite.isFriendly ? '#008000':'#f00';  // some color/style
-                context.lineWidth = 2;         // thickness
+            context.drawImage(this.buffer, 0, Math.ceil(this.depth));
+            if(this.sprite){
+                this.drawSprite(context);
+                //context.strokeStyle = this.sprite.isFriendly ? '#008000':'#f00';  // some color/style
+                //context.lineWidth = 2;         // thickness
                 //context.strokeRect(x, y, 32, 32);
             }
         }
         //context.fillText(this.name, this.center.x - 20, this.center.y + 10);
     }
 
+    //provides coordinates so it appears that the sprite is standing in the center of the tile using the sprites dimensions
+    //TODO is this where the animation frame name would be passed in?
+    drawSprite(context, frameName='idle'){
+        const yOffset = 10;
+        //rounds down to whole number so sprites aren't drawn looking blurry
+        const x = Math.ceil(this.center.x) - this.sprite.width/2;
+        const y = Math.ceil(this.center.y) + Math.ceil(this.depth) - this.sprite.height + yOffset;
+
+        this.sprite.draw(context, frameName, x, y);
+
+    }
+
     update(deltaTime){
         this.traits.forEach(trait => {
             trait.update(deltaTime);
         });
-    }
-
-    setSprite(sprite){
-        this.sprite = sprite;
     }
 
     addTrait(trait){
