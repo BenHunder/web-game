@@ -1,0 +1,21 @@
+{
+    "timeLimit": 30,
+    "plants":
+        {
+            "type": "standardBush",
+            "spawnRate": 3,
+            "spawnVariance": 1
+        },
+    "spawners": [
+        {
+            "type": "mushboy",
+            "spawnRate": 7,
+            "spawnVariance": 1
+        },
+        {
+            "type": "otherCharacter",
+            "spawnRate": 2.5,
+            "spawnVariance": 1
+        }
+    ]
+}

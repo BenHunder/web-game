@@ -22,7 +22,7 @@ export let soundBoard;
 export let spriteBoard;
 
 //TODO probably move to another file later
-let soundNames = [
+const soundNames = [
     {
         "filename": "sfx1.wav", 
         "name": "bonkEnemy"
@@ -40,6 +40,8 @@ let soundNames = [
         "name": "kill"
     }
 ];
+
+
 let player1;
 let paused = false;
 let pauseOptions = [togglePause, resetMap];
@@ -59,7 +61,7 @@ async function initialize(){
 
     return Promise.all([
         loadSprites(),
-        loadSpawners('testSpawnerObject'),
+        loadJson('/levels/testSpawnerObject.json'),
         loadSounds(soundNames),
         createPauseLayer(),
         createLayer1(cellMap),
@@ -67,10 +69,10 @@ async function initialize(){
         createLayer3(cellMap),
         createLayer4()
     ])
-    .then(([sprites, spawners, sndBrd, pauseLayer, layer1, layer2, layer3, layer4]) => {
+    .then(([sprites, spawnerObject, sndBrd, pauseLayer, layer1, layer2, layer3, layer4]) => {
         spriteBoard = sprites;
         soundBoard = sndBrd;
-        spawner = new Spawner(cellMap, spriteBoard, spawners);
+        spawner = new Spawner(cellMap, spriteBoard, spawnerObject);
 
         const comp = new Compositor();
         

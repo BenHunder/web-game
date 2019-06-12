@@ -19,13 +19,26 @@
             "rect": [150, 0, 50, 50]
         }
     ],
-    "sounds": {
-        "idle": "/sfx/mushboyIdle.wav",
-        "attack": "/sfx/mushboyAttack1.wav"
-    },
-    "traits": ["superGrowth", "poisonPunch"],
-    "health": 47,
-    "height": 50,
-    "width": 50
+    "sounds": [
+        {
+            "name": "idle",
+            "location": "/sfx/mushboyIdle.wav"
+        },
+        {
+            "name": "attack",
+            "location": "/sfx/mushboyAttack1.wav"
+        }
+    ],
+    "attributes": {
+        "health": 47,
+        "height": 50,
+        "width": 50,
+        
+        "traits": [
+            "superGrowth", 
+            "poisonPunch"
+        ]
+    }
+    
 
 }
