@@ -6,7 +6,6 @@ export default class Creature{
     }
 
     addTrait(trait) {
-        console.log("trait", trait);
         this.traits.push(trait);
         this[trait.NAME] = trait;
     }

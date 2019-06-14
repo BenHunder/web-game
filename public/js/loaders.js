@@ -44,7 +44,8 @@ export function loadLevel(cellMap, levelName){
             promisesArray.push( 
                 loadCreature(spawner.type)
                 .then( creatureFactory => {
-                    return new Spawner(cellMap, creatureFactory, spawner.spawnRate, spawner.spawnVariance);
+                    const newSpawner = new Spawner(cellMap, creatureFactory, spawner.spawnRate, spawner.spawnVariance);
+                    return newSpawner;
                 })
             );
         });

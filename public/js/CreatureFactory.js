@@ -36,7 +36,6 @@ export class CreatureFactory{
             //TODO eventually traits will be defined in the JSON or somehting I guess, but for now, they are just strings. This line is pretty useless rn
             creature.addTrait(new Trait(traitName));
         });
-        //console.log("creature", {creature})
 
         return creature;
     }

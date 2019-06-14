@@ -151,7 +151,6 @@ function start(comp){
     const timer = new Timer(1/60);
     timer.update = function update(deltaTime){
         if(!paused){
-            //console.log({spawnerSet});
             spawnerSet.forEach( spawner => spawner.update(deltaTime));
             comp.update(deltaTime);
             comp.draw(canvas);

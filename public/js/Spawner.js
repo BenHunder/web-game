@@ -24,7 +24,7 @@ export class Spawner{
         this.counter += deltaTime;
         if(this.counter >= this.spawnNext){
             this.spawn();
-            this.counters = 0;
+            this.counter = 0;
             this.spawnNext = this.calculateSpawnNext();
         }
     }
@@ -38,7 +38,6 @@ export class Spawner{
 
             if(!cell.isActive){
                 const newCreature = this.creatureFactory.create();
-                console.log({newCreature});
                 cell.setCreature(newCreature);
                 cell.spawn.start();
             }
