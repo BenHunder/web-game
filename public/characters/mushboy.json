@@ -32,7 +32,7 @@
         }
     ],
     "attributes": {
-        "health": 47,
+        "health": 20,
         "traits": [
             "superGrowth", 
             "poisonPunch"

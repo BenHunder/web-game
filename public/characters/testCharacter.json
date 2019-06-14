@@ -1,5 +1,7 @@
 {
     "name": "testCharacter",
+    "height": 50,
+    "width": 50,
     "spriteSheetLocation": "/img/character test.png",
     "frames": [
         {
@@ -23,8 +25,8 @@
         "idle": "/sfx/testCharacterIdle.wav",
         "attack": "/sfx/testCharacterAttack1.wav"
     },
-    "health": 30,
-    "height": 50,
-    "width": 50
+    "attributes": {
+        "health": 30
+    }
 
 }

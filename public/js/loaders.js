@@ -1,16 +1,17 @@
 import SpriteSheet from './SpriteSheet.js';
 import SoundBoard from './SoundBoard.js';
 import { CreatureFactory } from './CreatureFactory.js';
+import { Spawner } from './Spawner.js';
 
 //locations (TODO maybe move these to a separate file or somehting)
 //TODO probably move or REMOVE later (maybe make all creature's file name their type.json, maybe keep it this way to use different character versions or something?)
 const creatureLocations = {
-    "mushboy": "/characters/mushboyExample1.json",
-    "testCharacter": "/characters/testCharacterExample1.json"
+    "mushboy": "./characters/mushboy.json",
+    "testCharacter": "./characters/testCharacter.json"
 }
 
 const levelLocations = {
-    "level1": "/levels/testLevel.json"
+    "level1": "./levels/testLevel2.json"
 }
 
 
@@ -35,35 +36,33 @@ export function loadSound(url){
 }
 
 //loads level json, makes creature factories, returns and array of spawners TODO: create the spawner array and do something with it
-export async function loadLevel(levelName){
-    const level = await loadJson(levelLocations[levelName]);
-
-    if(level.spawners){
-        let promisesArray;
+export function loadLevel(cellMap, levelName){
+    return loadJson(levelLocations[levelName])
+    .then( level => {
+        let promisesArray = [];
         level.spawners.forEach( spawner => {
             promisesArray.push( 
                 loadCreature(spawner.type)
                 .then( creatureFactory => {
-                    //return new Spawner(creatureFactory, spawner.spawnRate, spawner.spawnVariance);
+                    return new Spawner(cellMap, creatureFactory, spawner.spawnRate, spawner.spawnVariance);
                 })
             );
         });
 
-        const resolvedPromises = await Promise.all(promisesArray);
-    }
+        return Promise.all(promisesArray);
+    });
 }
 
 //load all character properties (sounds, frames, attributes)
 export function loadCreature(creatureName){
     return loadJson(creatureLocations[creatureName])
     .then( creature => {
-
         return Promise.all([
             loadFrames(creature.width, creature.height, creature.spriteSheetLocation, creature.frames),
-            loadSounds(creature.sounds)
+            //loadSounds(creature.sounds)
         ])
-        .then( ([spriteSheet, soundboard]) => {
-            return new CreatureFactory(spriteSheet, soundboard, creature.name, creature.width, creature.height, creature.attributes);
+        .then( ([spriteSheet]) => {
+            return new CreatureFactory(spriteSheet, creature.name, creature.width, creature.height, creature.attributes);
         });
     });
 }
@@ -82,8 +81,8 @@ export function loadFrames(spriteWidth, spriteHeight, spriteSheetLocation, frame
     return loadImage(spriteSheetLocation)
     .then(image => {
         const sprites = new SpriteSheet(image, spriteWidth, spriteHeight);
-        frames.forEach( (name, rect) => {
-            sprites.define(name, ...rect);
+        frames.forEach( frame => {
+            sprites.define(frame.name, ...frame.rect);
         });
         return sprites;
     })

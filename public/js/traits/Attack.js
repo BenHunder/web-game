@@ -1,4 +1,4 @@
-import {Trait} from '../Creature.js/index.js';
+import Trait from '../Trait.js';
 import {soundBoard} from '../main.js';
 
 export default class Attack extends Trait {
@@ -12,8 +12,8 @@ export default class Attack extends Trait {
         if(!this.cell.duringSinkingAnimation){
             soundBoard.play('bonkEnemy');
 
-            this.cell.sprite.health -= weapon.power;
-            if(this.cell.sprite.health <= 0){
+            this.cell.creature.health -= weapon.power;
+            if(this.cell.creature.health <= 0){
                 this.cell.attack.kill();
             }
         }

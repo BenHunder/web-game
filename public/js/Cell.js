@@ -16,7 +16,7 @@ export default class Cell{
         this.speed = 50;
         this.duringSinkingAnimation = false;
         this.isActive = false;
-        this.sprite = null;
+        this.creature = null;
 
         this.traits = [];
 
@@ -30,9 +30,9 @@ export default class Cell{
     draw(context){
         if(this.depth < this.maxDepth){
             context.drawImage(this.buffer, 0, Math.ceil(this.depth));
-            if(this.sprite){
+            if(this.creature){
                 this.drawSprite(context);
-                //context.strokeStyle = this.sprite.isFriendly ? '#008000':'#f00';  // some color/style
+                //context.strokeStyle = this.creature.isFriendly ? '#008000':'#f00';  // some color/style
                 //context.lineWidth = 2;         // thickness
                 //context.strokeRect(x, y, 32, 32);
             }
@@ -45,10 +45,10 @@ export default class Cell{
     drawSprite(context, frameName='idle'){
         const yOffset = 10;
         //rounds down to whole number so sprites aren't drawn looking blurry
-        const x = Math.ceil(this.center.x) - this.sprite.width/2;
-        const y = Math.ceil(this.center.y) + Math.ceil(this.depth) - this.sprite.height + yOffset;
+        const x = Math.ceil(this.center.x) - this.creature.width/2;
+        const y = Math.ceil(this.center.y) + Math.ceil(this.depth) - this.creature.height + yOffset;
 
-        this.sprite.draw(context, frameName, x, y);
+        this.creature.draw(context, frameName, x, y);
 
     }
 
@@ -83,8 +83,8 @@ export default class Cell{
     released(){
     }
 
-    setSprite(sprite){
-        this.sprite = sprite;
+    setCreature(creature){
+        this.creature = creature;
     }
 
     reset(){
@@ -93,6 +93,6 @@ export default class Cell{
         this.speed = 50;
         this.duringSinkingAnimation = false;
         this.isActive = false;
-        this.sprite = null;
+        this.creature = null;
     };
 }

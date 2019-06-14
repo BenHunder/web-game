@@ -1,14 +1,3 @@
-import {Vec2} from './math.js';
-
-export class Trait {
-    constructor(name){
-        this.NAME = name;
-    }
-
-    update(){
-        console.warn("unhandled update call in Trait");
-    }
-}
 
 export default class Creature{
     constructor(spriteSheet){
@@ -17,6 +6,7 @@ export default class Creature{
     }
 
     addTrait(trait) {
+        console.log("trait", trait);
         this.traits.push(trait);
         this[trait.NAME] = trait;
     }

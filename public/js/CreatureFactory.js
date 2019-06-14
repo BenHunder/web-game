@@ -1,12 +1,13 @@
-import Creature from "./Creature";
+import Creature from "./Creature.js";
+import Trait from "./Trait.js";
 
 //do we need this? or do we just need to pass a function that returns a new creature or something. i am getting confused. this factory thing seems like a lot of unnecessary work
 
 export class CreatureFactory{
     //TODO should spriteSheet and soundBoard really be passed in here? If so, creature should have a function to play sounds like its draw method 
-    constructor(spriteSheet, soundBoard, name, width, height, attributes){
+    constructor(spriteSheet, name, width, height, attributes){
         this.spriteSheet = spriteSheet;
-        this.soundBoard = soundBoard;
+        //this.soundBoard = soundBoard;
         this.name = name;
         this.width = width;
         this.height = height;
@@ -21,7 +22,7 @@ export class CreatureFactory{
     }
 
     create(){
-        let creature = new Creature(spriteSheet);
+        let creature = new Creature(this.spriteSheet);
         creature.name = this.name;
         creature.width = this.width;
         creature.height = this.height;
@@ -31,7 +32,11 @@ export class CreatureFactory{
         creature.hungerRate = this.hungerRate;
         creature.isFriendly = this.isFriendly;
 
-        this.traits.forEach( trait => creature.addTrait(trait));
+        this.traits.forEach( traitName => {
+            //TODO eventually traits will be defined in the JSON or somehting I guess, but for now, they are just strings. This line is pretty useless rn
+            creature.addTrait(new Trait(traitName));
+        });
+        //console.log("creature", {creature})
 
         return creature;
     }

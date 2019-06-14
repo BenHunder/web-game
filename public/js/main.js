@@ -1,5 +1,5 @@
 import Compositor from './Compositor.js';
-import {loadSprites, loadLevel, loadSpawners, loadSounds} from './loaders.js';
+import {loadLevel, loadSounds} from './loaders.js';
 import {createLayer1, createLayer2, createLayer3, createLayer4, createPauseLayer, createAllCells} from './layers.js';
 import Timer from './Timer.js';
 import Controller from "./Controller.js";
@@ -7,19 +7,18 @@ import Cell from './Cell.js';
 import Player from './Player.js';
 import Weapon from './Weapon.js';
 import Food from './Food.js';
-import Spawner from './Spawner.js'
  
 let log = console.log;
 const canvas = document.getElementById('gameCanvas').getContext('2d');
 
 let cellMap;
-let spawner;
+let spawnerSet;
 
 //TODO
 //these might eventually be contained in sprite class? a sprite will need it's own sprite sheet (for each of the animation frames). And I guess it will have its own sounds, so it will need it's own sound board as well.
 //the thing is... each sprite of the SAME TYPE can share a sprite sheet and sound board, but they can't share health and stuff
 export let soundBoard;
-export let spriteBoard;
+//export let spriteBoard;
 
 //TODO probably move to another file later
 const soundNames = [
@@ -60,8 +59,8 @@ async function initialize(){
     cellMap = await createAllCells();
 
     return Promise.all([
-        loadSprites(),
-        loadJson('/levels/testSpawnerObject.json'),
+        //loadJson('/levels/testSpawnerObject.json'),
+        loadLevel(cellMap, "level1"),
         loadSounds(soundNames),
         createPauseLayer(),
         createLayer1(cellMap),
@@ -69,10 +68,10 @@ async function initialize(){
         createLayer3(cellMap),
         createLayer4()
     ])
-    .then(([sprites, spawnerObject, sndBrd, pauseLayer, layer1, layer2, layer3, layer4]) => {
-        spriteBoard = sprites;
+    .then(([spawners, sndBrd, pauseLayer, layer1, layer2, layer3, layer4]) => {
+        //spriteBoard = sprites;
         soundBoard = sndBrd;
-        spawner = new Spawner(cellMap, spriteBoard, spawnerObject);
+        spawnerSet = spawners;
 
         const comp = new Compositor();
         
@@ -152,7 +151,8 @@ function start(comp){
     const timer = new Timer(1/60);
     timer.update = function update(deltaTime){
         if(!paused){
-            spawner.update(deltaTime);
+            //console.log({spawnerSet});
+            spawnerSet.forEach( spawner => spawner.update(deltaTime));
             comp.update(deltaTime);
             comp.draw(canvas);
         }else{

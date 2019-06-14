@@ -11,11 +11,6 @@
             "type": "mushboy",
             "spawnRate": 7,
             "spawnVariance": 1
-        },
-        {
-            "type": "otherCharacter",
-            "spawnRate": 2.5,
-            "spawnVariance": 1
         }
     ]
 }
