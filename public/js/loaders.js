@@ -1,5 +1,6 @@
 import SpriteSheet from './SpriteSheet.js';
 import SoundBoard from './SoundBoard.js';
+import { CreatureFactory } from './CreatureFactory.js';
 
 //locations (TODO maybe move these to a separate file or somehting)
 //TODO probably move or REMOVE later (maybe make all creature's file name their type.json, maybe keep it this way to use different character versions or something?)
@@ -33,44 +34,38 @@ export function loadSound(url){
     });
 }
 
-//loads level json, makes creature factories
+//loads level json, makes creature factories, returns and array of spawners TODO: create the spawner array and do something with it
 export async function loadLevel(levelName){
     const level = await loadJson(levelLocations[levelName]);
 
     if(level.spawners){
         let promisesArray;
         level.spawners.forEach( spawner => {
-            promisesArray.push( loadCreature(spawner.type) );
-
-
-
-
-            spawner.spawnRate
-            spawner.spawnVariance
-        })
+            promisesArray.push( 
+                loadCreature(spawner.type)
+                .then( creatureFactory => {
+                    //return new Spawner(creatureFactory, spawner.spawnRate, spawner.spawnVariance);
+                })
+            );
+        });
 
         const resolvedPromises = await Promise.all(promisesArray);
     }
 }
 
-export async function loadCreature(creatureName){
-    const creature = await loadJson(creatureLocations[creatureName]);
+//load all character properties (sounds, frames, attributes)
+export function loadCreature(creatureName){
+    return loadJson(creatureLocations[creatureName])
+    .then( creature => {
 
-    if(creature.frames){
-        
-        //need to load the image file, then define the frames
-        //loadFrames(creature.spriteSheetLocation, creature.frames);
-    }
-
-    if(creature.sounds){
-        //load each sound in parallel and somehow associate the name with the action
-        //loadSounds(creature.sounds)
-    }
-
-    if(creature.attributes){
-        //cant decide if we need to return a "factory" here or just a function that creates a creature object or something else
-        //const creatureFactory = new CreatureFactory(creature.name, creature.attributes)
-    }
+        return Promise.all([
+            loadFrames(creature.width, creature.height, creature.spriteSheetLocation, creature.frames),
+            loadSounds(creature.sounds)
+        ])
+        .then( ([spriteSheet, soundboard]) => {
+            return new CreatureFactory(spriteSheet, soundboard, creature.name, creature.width, creature.height, creature.attributes);
+        });
+    });
 }
 
 export function loadJson(path){
@@ -82,13 +77,15 @@ export function loadJson(path){
     })
 }
 
-//async function that loads character sprite sheet and defines characters
-export function loadSprites(){
-    return loadImage('/img/mushboy.png')
+//loads character sprite sheet and defines each frame
+export function loadFrames(spriteWidth, spriteHeight, spriteSheetLocation, frames){
+    return loadImage(spriteSheetLocation)
     .then(image => {
-        const sprites = new SpriteSheet(image, 50, 50);
-        sprites.define('idle', 0, 0, 50, 50);
-        return sprites
+        const sprites = new SpriteSheet(image, spriteWidth, spriteHeight);
+        frames.forEach( (name, rect) => {
+            sprites.define(name, ...rect);
+        });
+        return sprites;
     })
 }
 

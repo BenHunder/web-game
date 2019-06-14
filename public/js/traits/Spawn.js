@@ -1,4 +1,4 @@
-import {Trait} from '../Sprite.js';
+import {Trait} from '../Creature.js/index.js';
 
 export default class Spawn extends Trait {
     constructor(cell){

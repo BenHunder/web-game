@@ -10,17 +10,9 @@ export class Trait {
     }
 }
 
-export default class Sprite{
+export default class Creature{
     constructor(spriteSheet){
         this.spriteSheet = spriteSheet;
-        this.width = 50;
-        this.height = 50;
-        this.health = 20;
-        this.hunger = 20;
-        this.maxHunger = 20;
-        this.hungerRate = 1;
-        this.isFriendly = false;
-        
         this.traits = [];
     }
 

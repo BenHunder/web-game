@@ -1,4 +1,4 @@
-import {Trait} from '../Sprite.js';
+import {Trait} from '../Creature.js/index.js';
 import {soundBoard} from '../main.js';
 
 export default class Attack extends Trait {

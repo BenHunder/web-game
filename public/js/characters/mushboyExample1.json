@@ -1,5 +1,7 @@
 {
     "name": "mushboy",
+    "height": 50,
+    "width": 50,
     "spriteSheetLocation": "/img/mushboy.png",
     "frames": [
         {
@@ -31,9 +33,6 @@
     ],
     "attributes": {
         "health": 47,
-        "height": 50,
-        "width": 50,
-        
         "traits": [
             "superGrowth", 
             "poisonPunch"
