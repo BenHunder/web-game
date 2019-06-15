@@ -11,7 +11,7 @@ const creatureLocations = {
 }
 
 const levelLocations = {
-    "level1": "./levels/testLevel2.json"
+    "level1": "./levels/testLevel1.json"
 }
 
 
@@ -60,10 +60,10 @@ export function loadCreature(creatureName){
     .then( creature => {
         return Promise.all([
             loadFrames(creature.width, creature.height, creature.spriteSheetLocation, creature.frames),
-            //loadSounds(creature.sounds)
+            loadSounds(creature.sounds)
         ])
-        .then( ([spriteSheet]) => {
-            return new CreatureFactory(spriteSheet, creature.name, creature.width, creature.height, creature.attributes);
+        .then( ([spriteSheet, soundBoard]) => {
+            return new CreatureFactory(spriteSheet, soundBoard, creature.name, creature.width, creature.height, creature.attributes);
         });
     });
 }
@@ -89,9 +89,10 @@ export function loadFrames(spriteWidth, spriteHeight, spriteSheetLocation, frame
     })
 }
 
-//puts all promises from calling loadSounds in array and resloves together.
+//puts all promises from calling loadSounds in array and resolves together.
 //not sure if this makes sense to do with audio elements, but I just want this function to wait until all audio is loaded
 export async function loadSounds(soundNames){
+    console.log("sounds", soundNames)
     //this is the number of audio elements that will be created for each sound. the higher n, the greater the polyphony, the greater the load time
     const n = 3;
 
@@ -106,7 +107,7 @@ export async function loadSounds(soundNames){
     const soundBoard = new SoundBoard(n);
 
     const promisesArray = soundNamesTimesN.map(soundName => {
-        return loadSound('/sfx/' + soundName.filename)
+        return loadSound(soundName.location)
         .then(audio => {
             soundBoard.define(soundName.name, audio);
             return audio;

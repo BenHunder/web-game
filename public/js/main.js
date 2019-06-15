@@ -23,20 +23,16 @@ export let soundBoard;
 //TODO probably move to another file later
 const soundNames = [
     {
-        "filename": "sfx1.wav", 
+        "location": "/sfx/sfx1.wav", 
         "name": "bonkEnemy"
     },
     {
-        "filename": "sfx2.wav",
+        "location": "/sfx/sfx2.wav",
         "name": "bonkOther"
     },
     {
-        "filename": "sfx3.wav", 
+        "location": "/sfx/sfx3.wav", 
         "name": "feed"
-    },
-    {
-        "filename": "sfx4.wav", 
-        "name": "kill"
     }
 ];
 

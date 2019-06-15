@@ -9,12 +9,12 @@
     "spawners": [
         {
             "type": "mushboy",
-            "spawnRate": 7,
+            "spawnRate": 2.5,
             "spawnVariance": 1
         },
         {
             "type": "testCharacter",
-            "spawnRate": 2.5,
+            "spawnRate": 5,
             "spawnVariance": 1
         }
     ]

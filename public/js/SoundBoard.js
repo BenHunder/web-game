@@ -19,16 +19,24 @@ export default class SoundBoard{
     }   
 
     //plays the sound at the playIndex'th spot in the array and updates playIndex
-    play(name){
+    play(name, delay=0){
         const soundArray = this.sounds.get(name);
         const i = this.playIndexes.get(name);
 
-        soundArray[i].play();
+        if(delay > 0){  
+            setTimeout(() => soundArray[i].play(), delay);
+        }else{
+            soundArray[i].play();
+        }
 
         this.playIndexes.set(name, (i+1)%this.n);
     }
 
     getSound(name){
         return this.sounds.get(name);
+    }
+
+    hasSound(name){
+        return this.sounds.has(name);
     }
 }

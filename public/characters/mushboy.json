@@ -23,16 +23,12 @@
     ],
     "sounds": [
         {
-            "name": "idle",
-            "location": "/sfx/mushboyIdle.wav"
-        },
-        {
-            "name": "attack",
-            "location": "/sfx/mushboyAttack1.wav"
+            "name": "kill",
+            "location": "/sfx/sfx4.wav"
         }
     ],
     "attributes": {
-        "health": 20,
+        "health": 10,
         "traits": [
             "superGrowth", 
             "poisonPunch"

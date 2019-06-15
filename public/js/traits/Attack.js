@@ -21,7 +21,7 @@ export default class Attack extends Trait {
 
     kill(){
         if(!this.cell.duringSinkingAnimation){
-            soundBoard.play('kill');
+            this.cell.creature.playSound('kill', 80);
             this.cell.duringSinkingAnimation = true;
         }
     }
@@ -31,7 +31,7 @@ export default class Attack extends Trait {
             this.cell.depth += this.cell.speed * deltaTime;
         }else if(this.cell.duringSinkingAnimation && this.cell.depth >= this.cell.maxDepth){
             this.cell.duringSinkingAnimation = false;
-            this.cell.isActive = false;
+            this.cell.reset();
         }
     }
 }

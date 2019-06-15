@@ -5,9 +5,9 @@ import Trait from "./Trait.js";
 
 export class CreatureFactory{
     //TODO should spriteSheet and soundBoard really be passed in here? If so, creature should have a function to play sounds like its draw method 
-    constructor(spriteSheet, name, width, height, attributes){
+    constructor(spriteSheet, soundBoard, name, width, height, attributes){
         this.spriteSheet = spriteSheet;
-        //this.soundBoard = soundBoard;
+        this.soundBoard = soundBoard;
         this.name = name;
         this.width = width;
         this.height = height;
@@ -22,7 +22,7 @@ export class CreatureFactory{
     }
 
     create(){
-        let creature = new Creature(this.spriteSheet);
+        let creature = new Creature(this.spriteSheet, this.soundBoard);
         creature.name = this.name;
         creature.width = this.width;
         creature.height = this.height;
