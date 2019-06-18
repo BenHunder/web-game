@@ -2,7 +2,7 @@
     "timeLimit": 30,
     "keyboard": 
         {
-            "layout": "qwerty",
+            "layout": "mac-qwerty",
             "location": "/layouts/mac-querty"
         },
     "plants":
