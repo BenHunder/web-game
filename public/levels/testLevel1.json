@@ -1,5 +1,10 @@
 {
     "timeLimit": 30,
+    "keyboard": 
+       {
+            "layout": "qwerty",
+            "location": "/layouts/mac-querty"
+       }
     "plants":
         {
             "type": "standardBush",
