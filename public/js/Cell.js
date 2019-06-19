@@ -4,6 +4,7 @@ import Spawn from './traits/Spawn.js';
 import Weapon from './Weapon.js';
 import Food from './Food.js';
 import { globalSoundBoard } from './main.js';
+import { Vec2 } from './math.js';
 
 export default class Cell{
     constructor(name, coordinates, center, buffer){
@@ -96,4 +97,20 @@ export default class Cell{
         this.isActive = false;
         this.creature = null;
     };
+
+    right(){
+        return new Vec2(this.coordinates.x + 1, this.coordinates.y);
+    }
+
+    left(){
+        return new Vec2(this.coordinates.x - 1, this.coordinates.y);
+    }
+
+    up(){
+        return new Vec2(this.coordinates.x, this.coordinates.y + 1);
+    }
+
+    down(){
+        return new Vec2(this.coordinates.x, this.coordinates.y - 1);
+    }
 }
