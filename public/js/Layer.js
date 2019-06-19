@@ -3,7 +3,6 @@ import SpriteSheet from "./SpriteSheet.js";
 
 export default class Layer{
     constructor(zIndex, cells, buffer){
-        console.log(zIndex, cells);
         this.zIndex = zIndex;
         this.cells = cells;
         this.buffer = buffer;

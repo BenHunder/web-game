@@ -14,11 +14,7 @@ const canvas = document.getElementById('gameCanvas').getContext('2d');
 let cellMap;
 let spawnerSet;
 
-//TODO
-//these might eventually be contained in sprite class? a sprite will need it's own sprite sheet (for each of the animation frames). And I guess it will have its own sounds, so it will need it's own sound board as well.
-//the thing is... each sprite of the SAME TYPE can share a sprite sheet and sound board, but they can't share health and stuff
-export let soundBoard;
-//export let spriteBoard;
+export let globalSoundBoard;
 
 //TODO probably move to another file later
 const soundNames = [
@@ -65,8 +61,7 @@ async function initialize(){
         createLayer4()
     ])
     .then(([spawners, sndBrd, pauseLayer, layer1, layer2, layer3, layer4]) => {
-        //spriteBoard = sprites;
-        soundBoard = sndBrd;
+        globalSoundBoard = sndBrd;
         spawnerSet = spawners;
 
         const comp = new Compositor();
@@ -92,7 +87,7 @@ async function initialize(){
             }
         });
 
-        // \ pauses and unpauses
+        // enter pauses and unpauses
         input.setMapping(13, keyState => {
             if(keyState){
                 togglePause();
@@ -125,8 +120,6 @@ async function initialize(){
             const cell = cellMap.get(key);
             input.setMapping(key.charCodeAt(0)-32, keyState => {
                 if(keyState){
-                    //cell.attack.start();
-                    //soundBoard.play('bonkEnemy');
                     cell.interact(onWeapon ? player1.weapon : player1.food);
                 }else{
                     cell.released();
@@ -135,7 +128,7 @@ async function initialize(){
         });
         input.listenTo(window);
 
-
+        log("cellMap initialized:\n", {cellMap});
         return comp;
     });
 }

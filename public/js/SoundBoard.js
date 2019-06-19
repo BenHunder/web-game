@@ -18,7 +18,7 @@ export default class SoundBoard{
         }
     }   
 
-    //plays the sound at the playIndex'th spot in the array and updates playIndex
+    //plays the sound at playIndex in the array after delay milliseconds (hesitant about using setTimeout here because it's not that precise and that would need to change if being ported to another platform) and updates the playIndex so it plays the sounds in a rotating sequence
     play(name, delay=0){
         const soundArray = this.sounds.get(name);
         const i = this.playIndexes.get(name);

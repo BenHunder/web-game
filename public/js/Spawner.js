@@ -16,7 +16,6 @@ export class Spawner{
     calculateSpawnNext(spawner){
         let j = Math.random() * this.spawnRate;
         j = j - (this.spawnRate/2);
-        //console.log(spawner.spawnRate, spawner.spawnVariance, j, spawner.spawnRate + (j * spawner.spawnVariance));
         return this.spawnRate + (j * this.spawnVariance);
     }
 

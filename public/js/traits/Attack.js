@@ -1,5 +1,5 @@
 import Trait from '../Trait.js';
-import {soundBoard} from '../main.js';
+import {globalSoundBoard} from '../main.js';
 
 export default class Attack extends Trait {
     constructor(cell){
@@ -10,7 +10,7 @@ export default class Attack extends Trait {
 
     start(weapon){
         if(!this.cell.duringSinkingAnimation){
-            soundBoard.play('bonkEnemy');
+            globalSoundBoard.play('bonkEnemy');
 
             this.cell.creature.health -= weapon.power;
             if(this.cell.creature.health <= 0){

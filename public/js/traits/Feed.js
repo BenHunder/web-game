@@ -1,5 +1,5 @@
 import Trait from '../Trait.js';
-import {soundBoard} from '../main.js';
+import {globalSoundBoard} from '../main.js';
 
 export default class Feed extends Trait {
     constructor(cell){
@@ -9,7 +9,7 @@ export default class Feed extends Trait {
     }
 
     start(food){
-        soundBoard.play('feed');
+        globalSoundBoard.play('feed');
 
         this.cell.creature.hunger += food.power;  
         if(this.cell.creature.hunger > this.cell.creature.maxHunger){

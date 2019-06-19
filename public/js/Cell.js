@@ -3,11 +3,12 @@ import Feed from './traits/Feed.js';
 import Spawn from './traits/Spawn.js';
 import Weapon from './Weapon.js';
 import Food from './Food.js';
-import { soundBoard } from './main.js';
+import { globalSoundBoard } from './main.js';
 
 export default class Cell{
-    constructor(name, center, buffer){
+    constructor(name, coordinates, center, buffer){
         this.name = name;
+        this.coordinates = coordinates;
         this.center = center
         this.buffer = buffer;
 
@@ -73,7 +74,7 @@ export default class Cell{
                 this.feed.start(item);
             }
         }else{
-            soundBoard.play('bonkOther');
+            globalSoundBoard.play('bonkOther');
         }
     }
 
