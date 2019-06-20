@@ -34,7 +34,7 @@ const soundNames = [
 
 
 let player1;
-let paused = false;
+let paused = true;
 let pauseOptions = [togglePause, resetMap];
 let pauseIndex = 0;
 let onWeapon = true;
@@ -81,6 +81,7 @@ async function initialize(){
         const input = new Controller();
 
         // spacebar switches weapon and food and vice versa
+        //TODO make setMapping take a character instead of the keycode
         input.setMapping(32, keyState => {
             if(keyState){
                 toggleWeapon();

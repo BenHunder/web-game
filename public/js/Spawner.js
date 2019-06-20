@@ -29,7 +29,7 @@ export class Spawner{
     }
 
     spawn(){
-        const availableCells = Array.from(this.cellMap).filter(([name,cell]) => !cell.isActive);
+        const availableCells = this.cellMap.allCells().filter(([name,cell]) => !cell.isActive);
         if(availableCells.length > 0){
             const i = getRandomInt(availableCells.length);
             const cellPair = availableCells[i];

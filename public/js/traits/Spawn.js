@@ -4,6 +4,7 @@ export default class Spawn extends Trait {
     constructor(cell){
         super('spawn');
 
+        //TODO this is a circular reference, should fix and make traits make more sense
         this.cell = cell;
     }
 

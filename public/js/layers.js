@@ -1,5 +1,6 @@
 import { loadImage } from './loaders.js';
 import Cell from './Cell.js';
+import CellMap from './CellMap.js'
 import { Vec2 } from './math.js';
 import Layer from './Layer.js';
 
@@ -70,9 +71,9 @@ export function createAllCells(){
 
     //]).then(([q,w,e,r,t,y,u,i,o,p,a,s,d,f,g,h,j,k,l,z,x,c,v,b,n,m]) => {
     ]).then((cells) => {
-        const cellMap = new Map();
+        const cellMap = new CellMap(10,3);
         cells.forEach(cell => {
-            cellMap.set(cell.name, cell);
+            cellMap.set(cell.name, cell.coordinates, cell);
         })
 
         return cellMap
