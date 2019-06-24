@@ -1,13 +1,19 @@
--Tuesday, June 18, 2019-
-created cellMap class which consists of two data structures that hold the same cells.
-It allows me to access cells by their letter (like it could before) and also access cells in relation to another cell. For example, cellMap.above(c) => d
+---Tuesday, June 18, 2019---
+-created cellMap class which consists of two data structures that hold the same cells.
+-It allows me to access cells by their letter (like it could before) and also access cells in relation to another cell. For example, cellMap.above(c) => d
 
--Wednesday, June 19, 2019-
-started using the cellMap class
-began testing cellMap methods and came across a tricky bug
-I learned that if you use Array.fill(someObject) it will only pass a reference to the object into each slot of the array. So you have to be careful. It's probably not really supposed to be used with objects.
-fixed the bug by replacing the nested Array.fill()s in the grid initialization with a nested for loop
-I learned about circular references in objects when trying to use JSON.stringify() on cells. the traits classes contained a reference to their parent cells
-I think I am not really using the traits how they are intended to be used (https://www.youtube.com/watch?v=1rBOUyRGQuU&list=PLS8HfBXv9ZWWe8zXrViYbIM2Hhylx8DZx&index=4 @ 13:50) and they arent very intuitive
-should probably rework the traits and fix the circular reference
-thought about starting unit test cases. would help for the new cellMap code. but still don't think it is worth my time yet.
+---Wednesday, June 19, 2019---
+-started using the cellMap class
+-began testing cellMap methods and came across a tricky bug
+-I learned that if you use Array.fill(someObject) it will only pass a reference to the object into each slot of the array. So you have to be careful. It's probably not really supposed to be used with objects.
+-fixed the bug by replacing the nested Array.fill()s in the grid initialization with a nested for loop
+-I learned about circular references in objects when trying to use JSON.stringify() on cells. the traits classes contained a reference to their parent cells
+-I think I am not really using the traits how they are intended to be used (https://www.youtube.com/watch?v=1rBOUyRGQuU&list=PLS8HfBXv9ZWWe8zXrViYbIM2Hhylx8DZx&index=4 @ 13:50) and they arent very intuitive
+-TODO: should probably rework the traits and fix the circular reference
+-thought about starting unit test cases. would help for the new cellMap code. but still don't think it is worth my time yet.
+
+---Sunday, June 23, 2019---
+-I am experimenting with traits and abilities. right now traits are time based behaviours which have an update function. Abilities are functions that change state when called
+-hmm interesting problem when trying to create multiply function. i think this is the gorilla and the banana problem (https://medium.com/code-monkey/object-composition-in-javascript-2f9b9077b5e6). The 'creature' would need access to the cell, cellMap, and its own creature factory
+-i think I will pass in cell and cell map, but the creature factory will be stored in the creature. because it makes sense that the creature could reproduce.. asexually. It could also reset itself this Wednesday
+-TODO: theres weird behavior where theres an unexpected delay for the first attack sound

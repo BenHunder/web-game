@@ -11,7 +11,7 @@ import Food from './Food.js';
 let log = console.log;
 const canvas = document.getElementById('gameCanvas').getContext('2d');
 
-let cellMap;
+export let cellMap;
 let spawnerSet;
 
 export let globalSoundBoard;

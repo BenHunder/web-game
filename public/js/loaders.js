@@ -3,6 +3,7 @@ import SoundBoard from './SoundBoard.js';
 import { CreatureFactory } from './CreatureFactory.js';
 import { Spawner } from './Spawner.js';
 
+
 //TODO probably move or REMOVE later (maybe make all creature's file name their type.json, maybe keep it this way to use different character versions or something?)
 const creatureLocations = {
     "mushboy": "./characters/mushboy.json",
@@ -12,6 +13,8 @@ const creatureLocations = {
 const levelLocations = {
     "level1": "./levels/testLevel1.json"
 }
+
+
 
 export function loadJson(path){
     return fetch(path)

@@ -1,6 +1,9 @@
 import Trait from '../Trait.js';
 import {globalSoundBoard} from '../main.js';
 
+//TODO this is temporary just to test the multiply function
+import {cellMap} from '../main.js';
+
 export default class Feed extends Trait {
     constructor(cell){
         super('feed');
@@ -12,6 +15,7 @@ export default class Feed extends Trait {
     start(food){
         globalSoundBoard.play('feed');
 
+        this.cell.creature.multiply(cellMap, this.cell);
         this.cell.creature.hunger += food.power;  
         if(this.cell.creature.hunger > this.cell.creature.maxHunger){
             this.cell.creature.hunger = this.cell.creature.maxHunger;

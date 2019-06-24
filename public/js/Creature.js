@@ -21,6 +21,7 @@ export default class Creature{
         const buffer = this.spriteSheet.getBuffer(name);
         context.drawImage(buffer, x, y);
     }
+    
     playSound(name, delay=0){
         if(this.soundBoard.hasSound(name)){
             this.soundBoard.play(name, delay);
