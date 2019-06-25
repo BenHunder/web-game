@@ -1,6 +1,4 @@
 
-import {getRandomInt} from './math.js';
-
 export class Spawner{
     constructor(cellMap, creatureFactory, spawnRate, spawnVariance){
         this.cellMap = cellMap;
@@ -27,13 +25,7 @@ export class Spawner{
     }
 
     spawn(){
-        const availableCells = this.cellMap.availableCells();
-        if(availableCells.length > 0){
-            const i = getRandomInt(availableCells.length);
-            const cellPair = availableCells[i];
-            const cell = cellPair[1];
-
-            cell.spawnNew(this.creatureFactory.create());
-        }
+        const cell = this.cellMap.randomAvailableCell();
+        cell.spawnNew(this.creatureFactory.create());
     }
 }

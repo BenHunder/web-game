@@ -94,6 +94,16 @@ export default class Cell{
         }
     }
 
+    teleport(creature){
+        if(!this.isActive){
+            this.creature = creature;
+            this.depth = 0;
+            this.isActive = true;
+        }else{
+            console.log("tried to teleport on active cell");
+        }
+    }
+
     reset(){
         this.depth = 50;
         this.maxDepth = 50;
@@ -102,20 +112,4 @@ export default class Cell{
         this.isActive = false;
         this.creature = null;
     };
-
-    right(){
-        return new Vec2(this.coordinates.x + 1, this.coordinates.y);
-    }
-
-    left(){
-        return new Vec2(this.coordinates.x - 1, this.coordinates.y);
-    }
-
-    up(){
-        return new Vec2(this.coordinates.x, this.coordinates.y + 1);
-    }
-
-    down(){
-        return new Vec2(this.coordinates.x, this.coordinates.y - 1);
-    }
 }

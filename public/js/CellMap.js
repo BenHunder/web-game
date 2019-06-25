@@ -1,4 +1,5 @@
 import { Vec2 } from "./math.js";
+import {getRandomInt} from './math.js';
 
 //im sure there are better ways to do this, but this makes sense to me at this moment so, I'm rolling with it.
 //cellMap contains a map so you can access cells by their corresponding letter (the key) and it contains a two dimensional array (this.grid) so cells can be accessed by x,y coordinates and math can be done to get neightboring cells
@@ -132,6 +133,14 @@ export default class CellMap{
 
     availableCells(){
         return this.allCells().filter(([name,cell]) => !cell.isActive);
+    }
+
+    randomAvailableCell(){
+        const availableCells = this.availableCells();
+        if(availableCells.length > 0){
+            const i = getRandomInt(availableCells.length);
+            return availableCells[i][1];
+        }
     }
 
     //TODO am i sure this works?
