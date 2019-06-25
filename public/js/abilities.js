@@ -5,8 +5,7 @@ export const multiply = (creature) => ({
         const newCell = cellMap[pattern](cell);
         //TODO create cell.spawn function which does nothing or throws an error if the cell is already active,
         if(newCell){
-            newCell.setCreature(this.creatureFactory.create());
-            newCell.spawn.start();
+            newCell.spawnNew(this.creatureFactory.create());
         }
     }.bind(creature)
 })

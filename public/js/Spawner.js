@@ -1,8 +1,6 @@
 
 import {getRandomInt} from './math.js';
 
-//TODO this is an aggregation of spawners, need and individual spawner class
-
 export class Spawner{
     constructor(cellMap, creatureFactory, spawnRate, spawnVariance){
         this.cellMap = cellMap;
@@ -29,17 +27,13 @@ export class Spawner{
     }
 
     spawn(){
-        const availableCells = this.cellMap.allCells().filter(([name,cell]) => !cell.isActive);
+        const availableCells = this.cellMap.availableCells();
         if(availableCells.length > 0){
             const i = getRandomInt(availableCells.length);
             const cellPair = availableCells[i];
             const cell = cellPair[1];
 
-            if(!cell.isActive){
-                const newCreature = this.creatureFactory.create();
-                cell.setCreature(newCreature);
-                cell.spawn.start();
-            }
+            cell.spawnNew(this.creatureFactory.create());
         }
     }
 }

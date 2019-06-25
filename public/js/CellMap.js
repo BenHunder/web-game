@@ -130,6 +130,10 @@ export default class CellMap{
         return Array.from(this.letterMap);
     }
 
+    availableCells(){
+        return this.allCells().filter(([name,cell]) => !cell.isActive);
+    }
+
     //TODO am i sure this works?
     areAdjacent(cell1, cell2){
         const x1 = cell1.coordinates.x;

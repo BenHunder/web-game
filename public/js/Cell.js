@@ -3,7 +3,7 @@ import Feed from './traits/Feed.js';
 import Spawn from './traits/Spawn.js';
 import Weapon from './Weapon.js';
 import Food from './Food.js';
-import { globalSoundBoard } from './main.js';
+import { globalSoundBoard, cellMap } from './main.js';
 import { Vec2 } from './math.js';
 
 export default class Cell{
@@ -85,8 +85,13 @@ export default class Cell{
     released(){
     }
 
-    setCreature(creature){
-        this.creature = creature;
+    spawnNew(creature){
+        if(!this.isActive){
+            this.creature = creature;
+            this.spawn.start();
+        }else{
+            console.log("tried to spawn on active cell");
+        }
     }
 
     reset(){
