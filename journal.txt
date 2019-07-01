@@ -17,3 +17,8 @@
 -hmm interesting problem when trying to create multiply function. i think this is the gorilla and the banana problem (https://medium.com/code-monkey/object-composition-in-javascript-2f9b9077b5e6). The 'creature' would need access to the cell, cellMap, and its own creature factory
 -i think I will pass in cell and cell map, but the creature factory will be stored in the creature. because it makes sense that the creature could reproduce.. asexually. It could also reset itself this Wednesday
 -TODO: theres weird behavior where theres an unexpected delay for the first attack sound
+
+---Sunday, June 30, 2019---
+-found good tips for performace optimization (https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas)
+-TODO: make drawImage calls not scale images, that means they only take two parameters. And do the rest of the performance optimization tips in the article above
+-

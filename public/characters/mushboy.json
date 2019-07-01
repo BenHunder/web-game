@@ -34,7 +34,8 @@
             "poisonPunch"
         ],
         "abilities": [
-            "multiply"
+            "multiply",
+            "teleport"
         ]
     }
     

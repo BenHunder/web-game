@@ -1,6 +1,6 @@
 import Compositor from './Compositor.js';
 import {loadLevel, loadSounds} from './loaders.js';
-import {createLayer1, createLayer2, createLayer3, createLayer4, createPauseLayer, createAllCells} from './layers.js';
+import {createLayer1, createLayer2, createLayer3, createLayer4, createPauseLayer, createAllCells, createDashboardLayer} from './layers.js';
 import Timer from './Timer.js';
 import Controller from "./Controller.js";
 import Cell from './Cell.js';
@@ -54,13 +54,14 @@ async function initialize(){
         //loadJson('/levels/testSpawnerObject.json'),
         loadLevel(cellMap, "level1"),
         loadSounds(soundNames),
-        createPauseLayer(),
         createLayer1(cellMap),
         createLayer2(cellMap),
         createLayer3(cellMap),
-        createLayer4()
+        createLayer4(),
+        createDashboardLayer(canvas),
+        createPauseLayer(),
     ])
-    .then(([spawners, sndBrd, pauseLayer, layer1, layer2, layer3, layer4]) => {
+    .then(([spawners, sndBrd, layer1, layer2, layer3, layer4, dashboardLayer, pauseLayer]) => {
         globalSoundBoard = sndBrd;
         spawnerSet = spawners;
 
@@ -70,6 +71,7 @@ async function initialize(){
         comp.layers.push(layer2);
         comp.layers.push(layer3);
         comp.layers.push(layer4);
+        comp.layers.push(dashboardLayer);
         comp.setPauseLayer(pauseLayer);
 
         player1 = new Player();

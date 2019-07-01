@@ -2,10 +2,10 @@ import {loadImage} from "./loaders.js";
 import SpriteSheet from "./SpriteSheet.js";
 
 export default class Layer{
-    constructor(zIndex, cells, buffer){
+    constructor(zIndex, buffer, cells){
         this.zIndex = zIndex;
-        this.cells = cells;
         this.buffer = buffer;
+        this.cells = cells;
     }
 
     draw(context){

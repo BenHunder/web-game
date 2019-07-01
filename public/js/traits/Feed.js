@@ -15,7 +15,7 @@ export default class Feed extends Trait {
     start(food){
         globalSoundBoard.play('feed');
 
-        this.cell.creature.multiply(cellMap, this.cell);
+        this.cell.creature.teleport(cellMap, this.cell);
         this.cell.creature.hunger += food.power;  
         if(this.cell.creature.hunger > this.cell.creature.maxHunger){
             this.cell.creature.hunger = this.cell.creature.maxHunger;

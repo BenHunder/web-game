@@ -26,6 +26,8 @@ export class Spawner{
 
     spawn(){
         const cell = this.cellMap.randomAvailableCell();
-        cell.spawnNew(this.creatureFactory.create());
+        if(cell){
+            cell.spawnNew(this.creatureFactory.create());
+        }
     }
 }

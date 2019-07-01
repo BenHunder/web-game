@@ -1,8 +1,6 @@
 export default class SpriteSheet{
-    constructor(image, width, height){
+    constructor(image){
         this.image = image;
-        this.width = width;
-        this.height = height;
         this.tiles = new Map();
     } 
 
@@ -13,12 +11,14 @@ export default class SpriteSheet{
         buffer.getContext('2d').drawImage(
             this.image, 
             x,
-            y,); 
+            y,
+            width,
+            height,
+            0,
+            0,
+            width,
+            height); 
         this.tiles.set(name, buffer);
-    }
-
-    defineTile(name, x, y){
-        this.define(name, x * this.width, y * this.height, this.width, this.height);
     }
 
     getBuffer(name){

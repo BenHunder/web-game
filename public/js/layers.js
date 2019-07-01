@@ -3,11 +3,15 @@ import Cell from './Cell.js';
 import CellMap from './CellMap.js'
 import { Vec2 } from './math.js';
 import Layer from './Layer.js';
+import Font from './Font.js';
+
+const gameWidth = 640;
+const gameHeight = 480;
 
 export function createBackgroundLayer(){
     const buffer = document.createElement('canvas');
-    buffer.width = 640;
-    buffer.height = 480;
+    buffer.width = gameWidth;
+    buffer.height = gameHeight;
 
     loadImage('/img/game-layout2.png').then(img => {
         buffer.getContext('2d').drawImage(img, 0, 0);
@@ -18,22 +22,33 @@ export function createBackgroundLayer(){
     });
 }
 
+export function createDashboardLayer(){
+    const buffer = document.createElement('canvas');
+    buffer.width = gameWidth;
+    buffer.height = gameHeight;
+
+    return loadImage('../lunchtime-doubly-so/lunchtime.png').then(img => {
+        const font = new Font(img);
+        return new Layer(5, buffer);
+    });
+}
+
 export function createPauseLayer(){
     const buffer = document.createElement('canvas');
-    buffer.width = 640;
-    buffer.height = 480;
+    buffer.width = gameWidth;
+    buffer.height = gameHeight;
 
     return loadImage('/img/PauseScreenMockUp.png').then(img => {
         buffer.getContext('2d').drawImage(img, 0, 0);
-        return new Layer(5, null, buffer);
+        return new Layer(6, buffer);
     });
 }
 
 export function createCell(name, coordinates, center){
     return loadImage('/img/' + name.toUpperCase() + '.png').then(img => {
         const buffer = document.createElement('canvas');
-        buffer.width = 640;
-        buffer.height = 480;
+        buffer.width = gameWidth;
+        buffer.height = gameHeight;
         buffer.getContext('2d').drawImage(img, 0, 0);
 
         return new Cell(name, coordinates, center, buffer)
@@ -84,11 +99,11 @@ function createLayer(zIndex, cells){
     //zIndex++;
     return loadImage('/img/Layer' + zIndex + '.png').then(img => {
         const buffer = document.createElement('canvas');
-        buffer.width = 640;
-        buffer.height = 480;
+        buffer.width = gameWidth;
+        buffer.height = gameHeight;
         buffer.getContext('2d').drawImage(img, 0, 0);
 
-        return new Layer(zIndex, cells, buffer);
+        return new Layer(zIndex, buffer, cells);
     });
 }
 

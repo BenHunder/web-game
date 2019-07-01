@@ -36,10 +36,10 @@ export function loadImage(url){
 }
 
 //loads character sprite sheet and defines each frame
-export function loadFrames(spriteWidth, spriteHeight, spriteSheetLocation, frames){
+export function loadFrames(spriteSheetLocation, frames){
     return loadImage(spriteSheetLocation)
     .then(image => {
-        const sprites = new SpriteSheet(image, spriteWidth, spriteHeight);
+        const sprites = new SpriteSheet(image);
         frames.forEach( frame => {
             sprites.define(frame.name, ...frame.rect);
         });
@@ -109,7 +109,7 @@ export function loadCreature(creatureName){
     return loadJson(creatureLocations[creatureName])
     .then( creature => {
         return Promise.all([
-            loadFrames(creature.width, creature.height, creature.spriteSheetLocation, creature.frames),
+            loadFrames(creature.spriteSheetLocation, creature.frames),
             loadSounds(creature.sounds)
         ])
         .then( ([spriteSheet, soundBoard]) => {
