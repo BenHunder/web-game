@@ -18,15 +18,13 @@ export default class Font{
         }
     }
 
-    print(text, context, x, y){
+    print(text, context, x, y, scale=1){
         [...text].forEach((char, index) => {
-            console.log("drawing", char, index, x + index * this.charWidth, y);
-            this.draw(char, context, x + index * this.charWidth, y);
+            this.draw(char, context, x + index * this.charWidth * scale, y, scale);
         });
     }
 
-    draw(char, context, x, y){
-        console.log(arguments);
-        context.drawImage(this.spriteSheet.getBuffer(char), x, y);
+    draw(char, context, x, y, scale){
+        context.drawImage(this.spriteSheet.getBuffer(char), x, y, this.charWidth * scale, this.charHeight * scale);
     }
 }

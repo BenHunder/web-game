@@ -4,6 +4,7 @@ import CellMap from './CellMap.js'
 import { Vec2 } from './math.js';
 import Layer from './Layer.js';
 import Font from './Font.js';
+import Dashboard from './Dashboard.js'
 
 const gameWidth = 640;
 const gameHeight = 480;
@@ -29,7 +30,8 @@ export function createDashboardLayer(){
 
     return loadImage('../lunchtime-doubly-so/lunchtime.png').then(img => {
         const font = new Font(img);
-        return new Layer(5, buffer);
+        //font.print('Check it out, I got my own font in here!', buffer.getContext('2d'), 0, 200, 0.5);
+        return new Dashboard(5, font);
     });
 }
 
