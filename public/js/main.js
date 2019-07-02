@@ -1,6 +1,6 @@
 import Compositor from './Compositor.js';
-import {loadLevel, loadSounds} from './loaders.js';
-import {createLayer1, createLayer2, createLayer3, createLayer4, createPauseLayer, createAllCells, createDashboardLayer} from './layers.js';
+import {loadLevel, loadSounds, loadFont} from './loaders.js';
+import {createLayer1, createLayer2, createLayer3, createLayer4, createPauseMenuLayer, createAllCells, createDashboardLayer} from './layers.js';
 import Timer from './Timer.js';
 import Controller from "./Controller.js";
 import Cell from './Cell.js';
@@ -32,9 +32,23 @@ const soundNames = [
     }
 ];
 
+const fontData = [
+    {
+        'name': 'manaspace',
+        'location': '../img/fonts/manaspace/manaspace.png',
+        'charWidth': 16,
+        'charHeight': 24
+    },
+    {
+        'name': 'lunchtime',
+        'location': '../img/fonts/lunchtime/lunchtime.png',
+        'charWidth': 18,
+        'charHeight': 32
+    }
+]
 
 let player1;
-let paused = true;
+let paused = false;
 let pauseOptions = [togglePause, resetMap];
 let pauseIndex = 0;
 let onWeapon = true;
@@ -49,6 +63,7 @@ function togglePause(){
 
 async function initialize(){
     cellMap = await createAllCells();
+    const font = await loadFont(fontData[0]);
 
     return Promise.all([
         //loadJson('/levels/testSpawnerObject.json'),
@@ -58,8 +73,8 @@ async function initialize(){
         createLayer2(cellMap),
         createLayer3(cellMap),
         createLayer4(),
-        createDashboardLayer(canvas),
-        createPauseLayer(),
+        createDashboardLayer(font),
+        createPauseMenuLayer(font),
     ])
     .then(([spawners, sndBrd, layer1, layer2, layer3, layer4, dashboardLayer, pauseLayer]) => {
         globalSoundBoard = sndBrd;

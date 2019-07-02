@@ -2,6 +2,7 @@ import SpriteSheet from './SpriteSheet.js';
 import SoundBoard from './SoundBoard.js';
 import { CreatureFactory } from './CreatureFactory.js';
 import { Spawner } from './Spawner.js';
+import Font from './Font.js';
 
 
 //TODO probably move or REMOVE later (maybe make all creature's file name their type.json, maybe keep it this way to use different character versions or something?)
@@ -33,6 +34,13 @@ export function loadImage(url){
         });
         image.src = url;
     });
+}
+
+export function loadFont(fontData){
+    return loadImage(fontData.location).then(img => {
+        return new Font(img, fontData.name, fontData.charWidth, fontData.charHeight);
+    });
+
 }
 
 //loads character sprite sheet and defines each frame

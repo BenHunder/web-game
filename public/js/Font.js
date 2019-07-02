@@ -2,12 +2,15 @@ import SpriteSheet from './SpriteSheet.js'
 
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890`~!@#$%^&*()_-+={}[]|\\:;"\'<,>.?/ '
 
+
+//TODO: scaling is only working for two sizes, 1 and 0.5. Will have to store/load multiple sizes of a font if more sizes are needed.
 export default class Font{
-    constructor(image){
+    constructor(image, name, charWidth, charHeight){
 
         this.spriteSheet = new SpriteSheet(image);
-        this.charWidth = 18;
-        this.charHeight = 32;
+        this.name = name;
+        this.charWidth = charWidth;
+        this.charHeight = charHeight;
         this.rowLen = 26 * this.charWidth;
 
         for(let [index, char] of [...CHARS].entries()){

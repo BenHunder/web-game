@@ -1,10 +1,12 @@
 import { loadImage } from './loaders.js';
+import { loadFont } from './loaders.js';
 import Cell from './Cell.js';
 import CellMap from './CellMap.js'
 import { Vec2 } from './math.js';
 import Layer from './Layer.js';
 import Font from './Font.js';
 import Dashboard from './Dashboard.js'
+import PauseMenu from './PauseMenu.js';
 
 const gameWidth = 640;
 const gameHeight = 480;
@@ -23,26 +25,20 @@ export function createBackgroundLayer(){
     });
 }
 
-export function createDashboardLayer(){
-    const buffer = document.createElement('canvas');
-    buffer.width = gameWidth;
-    buffer.height = gameHeight;
-
-    return loadImage('../lunchtime-doubly-so/lunchtime.png').then(img => {
-        const font = new Font(img);
-        //font.print('Check it out, I got my own font in here!', buffer.getContext('2d'), 0, 200, 0.5);
-        return new Dashboard(5, font);
-    });
+//right now this functinon is not asynchronous, but it probably will be because icons and other images will be added
+export function createDashboardLayer(font){
+ 
+    return new Dashboard(5, font);
 }
 
-export function createPauseLayer(){
+//right now this functinon is not asynchronous, but it probably will be because icons and other images will be added
+export function createPauseMenuLayer(font){
     const buffer = document.createElement('canvas');
     buffer.width = gameWidth;
     buffer.height = gameHeight;
 
     return loadImage('/img/PauseScreenMockUp.png').then(img => {
-        buffer.getContext('2d').drawImage(img, 0, 0);
-        return new Layer(6, buffer);
+        return new PauseMenu(6, font);
     });
 }
 
