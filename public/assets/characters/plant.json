@@ -2,7 +2,7 @@
     "name": "plant",
     "height": 64,
     "width": 64,
-    "spriteSheetLocation": "assets/img/sprites/plant-01.png",
+    "spriteSheetLocation": "/assets/img/sprites/plant-01.png",
     "frames": [
         {
             "name": "idle",

@@ -16,7 +16,7 @@ export function createBackgroundLayer(){
     buffer.width = gameWidth;
     buffer.height = gameHeight;
 
-    loadImage('/img/game-layout2.png').then(img => {
+    loadImage('/assets/img/game-layout2.png').then(img => {
         buffer.getContext('2d').drawImage(img, 0, 0);
         console.log(buffer.src);
         return function drawBackgroundLayer(context) {
@@ -37,13 +37,13 @@ export function createPauseMenuLayer(font){
     buffer.width = gameWidth;
     buffer.height = gameHeight;
 
-    return loadImage('/img/PauseScreenMockUp.png').then(img => {
+    return loadImage('/assets/img/ui/PauseScreenMockUp.png').then(img => {
         return new PauseMenu(6, font);
     });
 }
 
 export function createCell(name, coordinates, center){
-    return loadImage('/img/' + name.toUpperCase() + '.png').then(img => {
+    return loadImage('/assets/img/background/' + name.toUpperCase() + '.png').then(img => {
         const buffer = document.createElement('canvas');
         buffer.width = gameWidth;
         buffer.height = gameHeight;
@@ -95,7 +95,7 @@ export function createAllCells(){
 
 function createLayer(zIndex, cells){
     //zIndex++;
-    return loadImage('/img/Layer' + zIndex + '.png').then(img => {
+    return loadImage('/assets/img/background/Layer' + zIndex + '.png').then(img => {
         const buffer = document.createElement('canvas');
         buffer.width = gameWidth;
         buffer.height = gameHeight;
