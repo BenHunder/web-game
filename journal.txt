@@ -23,3 +23,6 @@
 -TODO: make drawImage calls not scale images, that means they only take two parameters. And do the rest of the performance optimization tips in the article above
 -Got font and dashboard working, I am getting a little concerned about performance here because my fan is starting to run. Maybe its unrelated, but maybe optimization efforts should focus here first (on font and dashboard)
 
+---Tuesday, July 16, 2019---
+-working on the new canvas, deciding to make it very large cells will be 80px wide to accomodate 64px sprites
+-created new "big-canvas" branch to try the new canvas on. Will keep master as a stable working project.

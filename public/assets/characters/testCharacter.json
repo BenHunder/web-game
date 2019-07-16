@@ -1,8 +1,8 @@
 {
-    "name": "mushboy",
+    "name": "testCharacter",
     "height": 50,
     "width": 50,
-    "spriteSheetLocation": "/img/mushboy.png",
+    "spriteSheetLocation": "/assets/img/character test.png",
     "frames": [
         {
             "name": "idle",
@@ -24,20 +24,11 @@
     "sounds": [
         {
             "name": "kill",
-            "location": "/sfx/sfx4.wav"
+            "location": "/assets/sfx/sfx4.wav"
         }
     ],
     "attributes": {
-        "health": 10,
-        "traits": [
-            "superGrowth", 
-            "poisonPunch"
-        ],
-        "abilities": [
-            "multiply",
-            "teleport"
-        ]
+        "health": 30
     }
-    
 
 }

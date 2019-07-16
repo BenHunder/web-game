@@ -19,15 +19,15 @@ export let globalSoundBoard;
 //TODO probably move to another file later
 const soundNames = [
     {
-        "location": "/sfx/sfx1.wav", 
+        "location": "/assets/sfx/sfx1.wav", 
         "name": "bonkEnemy"
     },
     {
-        "location": "/sfx/sfx2.wav",
+        "location": "/assets/sfx/sfx2.wav",
         "name": "bonkOther"
     },
     {
-        "location": "/sfx/sfx3.wav", 
+        "location": "/assets/sfx/sfx3.wav", 
         "name": "feed"
     }
 ];
@@ -35,13 +35,13 @@ const soundNames = [
 const fontData = [
     {
         'name': 'manaspace',
-        'location': '../img/fonts/manaspace/manaspace.png',
+        'location': '../assets/img/fonts/manaspace/manaspace.png',
         'charWidth': 16,
         'charHeight': 24
     },
     {
         'name': 'lunchtime',
-        'location': '../img/fonts/lunchtime/lunchtime.png',
+        'location': '../assets/img/fonts/lunchtime/lunchtime.png',
         'charWidth': 18,
         'charHeight': 32
     }
@@ -66,7 +66,7 @@ async function initialize(){
     const font = await loadFont(fontData[0]);
 
     return Promise.all([
-        //loadJson('/levels/testSpawnerObject.json'),
+        //loadJson('/assets/levels/testSpawnerObject.json'),
         loadLevel(cellMap, "level1"),
         loadSounds(soundNames),
         createLayer1(cellMap),

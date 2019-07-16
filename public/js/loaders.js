@@ -7,12 +7,12 @@ import Font from './Font.js';
 
 //TODO probably move or REMOVE later (maybe make all creature's file name their type.json, maybe keep it this way to use different character versions or something?)
 const creatureLocations = {
-    "mushboy": "./characters/mushboy.json",
-    "testCharacter": "./characters/testCharacter.json"
+    "mushboy": "./assets/characters/mushboy.json",
+    "plant": "./assets/characters/plant.json"
 }
 
 const levelLocations = {
-    "level1": "./levels/testLevel1.json"
+    "level1": "./assets/levels/testLevel1.json"
 }
 
 

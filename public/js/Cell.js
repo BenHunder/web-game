@@ -45,15 +45,17 @@ export default class Cell{
     //provides coordinates so it appears that the sprite is standing in the center of the tile using the sprites dimensions
     //TODO is this where the animation frame name would be passed in?
     drawSprite(context, frameName='idle'){
-        const yOffset = 10;
+        const yOffset = 0;
         //rounds down to whole number so sprites aren't drawn looking blurry
+
+        //TODO: once board is set, this should draw in the lower left corner of each cell
         const x = Math.ceil(this.center.x) - this.creature.width/2;
-        const y = Math.ceil(this.center.y) + Math.ceil(this.depth) - this.creature.height + yOffset;
+        const y = Math.ceil(this.center.y) + Math.ceil(this.depth) - this.creature.height/2 + yOffset;
 
         this.creature.draw(context, frameName, x, y);
 
     }
-
+    
     update(deltaTime){
         this.traits.forEach(trait => {
             trait.update(deltaTime);
