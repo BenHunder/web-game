@@ -55,7 +55,7 @@ export default class Cell{
         this.creature.draw(context, frameName, x, y);
 
     }
-
+    //testing branch
     update(deltaTime){
         this.traits.forEach(trait => {
             trait.update(deltaTime);
