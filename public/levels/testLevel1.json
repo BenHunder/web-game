@@ -18,7 +18,7 @@
             "spawnVariance": 1
         },
         {
-            "type": "testCharacter",
+            "type": "plant",
             "spawnRate": 5,
             "spawnVariance": 1
         }
