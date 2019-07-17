@@ -11,8 +11,8 @@ import PauseMenu from './PauseMenu.js';
 // var gameCanvas = document.getElementById('gameCanvas');
 // const gameWidth = gameCanvas.width;
 // const gameHeight = gameCanvas.height;
-const gameWidth = 1280;
-const gameHeight = 960;
+const gameWidth = 640;
+const gameHeight = 360;
 
 export function createBackgroundLayer(){
     const buffer = document.createElement('canvas');
