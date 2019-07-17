@@ -11,6 +11,48 @@ import Food from './Food.js';
 let log = console.log;
 const canvas = document.getElementById('gameCanvas').getContext('2d');
 
+//shows the mouse coordinates in chrome
+document.onmousemove = function(e){
+    var x = e.pageX;
+    var y = e.pageY;
+    e.target.title = "X is "+x+" and Y is "+y;
+};
+
+function resizeGame() {
+    const gameContainer = document.getElementById('gameContainer');
+    const widthToHeight = 16 / 9;
+    let newWidth = window.innerWidth;
+    let newHeight = window.innerHeight;
+    let newWidthToHeight = newWidth / newHeight;
+    
+    console.log(newWidthToHeight, widthToHeight)
+    if (newWidthToHeight > widthToHeight) {
+        console.log({newWidth})
+        console.log({newHeight})
+        console.log({newWidthToHeight})
+        newWidth = newHeight * widthToHeight;
+        console.log("-----");
+        console.log({newWidth})
+        gameContainer.style.height = newHeight + 'px';
+        gameContainer.style.width = newWidth + 'px';
+    } else {
+        newHeight = newWidth / widthToHeight;
+        gameContainer.style.width = newWidth + 'px';
+        gameContainer.style.height = newHeight + 'px';
+    }
+    
+    //gameContainer.style.marginTop = (-newHeight / 2) + 'px';
+    gameContainer.style.marginLeft = (-newWidth / 2) + 'px';
+    
+    const gameCanvas = document.getElementById('gameCanvas');
+    gameCanvas.width = newWidth;
+    gameCanvas.height = newHeight;
+}
+
+//resizeGame();
+//window.addEventListener('resize', resizeGame, false);
+//window.addEventListener('orientationchange', resizeGame, false);
+
 export let cellMap;
 let spawnerSet;
 

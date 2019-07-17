@@ -8,8 +8,11 @@ import Font from './Font.js';
 import Dashboard from './Dashboard.js'
 import PauseMenu from './PauseMenu.js';
 
-const gameWidth = 640;
-const gameHeight = 480;
+// var gameCanvas = document.getElementById('gameCanvas');
+// const gameWidth = gameCanvas.width;
+// const gameHeight = gameCanvas.height;
+const gameWidth = 1280;
+const gameHeight = 960;
 
 export function createBackgroundLayer(){
     const buffer = document.createElement('canvas');
@@ -99,7 +102,7 @@ function createLayer(zIndex, cells){
         const buffer = document.createElement('canvas');
         buffer.width = gameWidth;
         buffer.height = gameHeight;
-        buffer.getContext('2d').drawImage(img, 0, 0);
+        buffer.getContext('2d').drawImage(img, 0, 0, gameWidth, gameHeight);
 
         return new Layer(zIndex, buffer, cells);
     });
