@@ -1,12 +1,12 @@
 {
     "name": "mushboy",
-    "height": 50,
-    "width": 50,
+    "height": 40,
+    "width": 32,
     "spriteSheetLocation": "/assets/img/sprites/mushboy.png",
     "frames": [
         {
             "name": "idle",
-            "rect": [0, 0, 50, 50]
+            "rect": [0, 0, 32, 40]
         },
         {
             "name": "attack-1",

@@ -24,5 +24,8 @@
 -Got font and dashboard working, I am getting a little concerned about performance here because my fan is starting to run. Maybe its unrelated, but maybe optimization efforts should focus here first (on font and dashboard)
 
 ---Tuesday, July 16, 2019---
--working on the new canvas, deciding to make it very large cells will be 80px wide to accomodate 64px sprites
--created new "big-canvas" branch to try the new canvas on. Will keep master as a stable working project.
+-created new branch "big-canvas" (even though its actually smaller) for expirimentaion
+-decided on 640x360 (16:9) canvas size with 32x32 sprites. Based on research and experimentation, I've come to the conclusion that pixel art can always scale up, but it can't scale down.
+
+---Monday, July 22, 2019---
+-TODO: 

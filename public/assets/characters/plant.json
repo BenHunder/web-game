@@ -1,12 +1,12 @@
 {
     "name": "plant",
-    "height": 64,
-    "width": 64,
+    "height": 16,
+    "width": 32,
     "spriteSheetLocation": "/assets/img/sprites/plant-01.png",
     "frames": [
         {
             "name": "idle",
-            "rect": [0, 0, 64, 64]
+            "rect": [0, 0, 32, 16]
         }
     ],
     "sounds": [

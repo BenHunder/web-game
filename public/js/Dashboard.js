@@ -8,7 +8,7 @@ export default class Dashboard extends Layer{
 
         this.margin = 10;
 
-        this.timer = 50;
+        this.timer = 100;
         this.health = 50;
         this.level = 1;
         this.score = 0;
