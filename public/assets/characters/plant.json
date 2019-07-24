@@ -25,7 +25,8 @@
             "multiply",
             "multiply",
             "teleport"
-        ]
+        ],
+        "isFriendly": true
     }
     
 

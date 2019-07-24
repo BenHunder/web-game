@@ -17,7 +17,7 @@ export class CreatureFactory{
         this.hunger = attributes.hunger || 20;
         this.maxHunger = attributes.maxHunger || 20;
         this.hungerRate = attributes.hungerRate || 1;
-        this.isFriendly = false;
+        this.isFriendly = attributes.isFriendly || false;
         
         this.traits = attributes.traits || [];
         this.abilities = attributes.abilities || [];

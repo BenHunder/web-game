@@ -175,10 +175,11 @@ async function initialize(){
         });
 
         //map each key to the corresponding cell function
-        const letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-        letters.forEach(key => {
+        const letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','[',']',';','\'','\,','.','/'];
+        const keyCodes = [65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,219,221,186,222,188,190,191];
+        letters.forEach((key, n) => {
             const cell = cellMap.get(key);
-            input.setMapping(key.charCodeAt(0)-32, keyState => {
+            input.setMapping(keyCodes[n], keyState => {
                 if(keyState){
                     cell.interact(onWeapon ? player1.weapon : player1.food);
                 }else{
