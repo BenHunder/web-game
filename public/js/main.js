@@ -1,6 +1,6 @@
 import Compositor from './Compositor.js';
 import {loadLevel, loadSounds, loadFont} from './loaders.js';
-import {createLayer1, createLayer2, createLayer3, createLayer4, createPauseMenuLayer, createAllCells, createDashboardLayer} from './layers.js';
+import {createLayer1, createLayer2, createLayer3, createLayer4, createLayer5, createPauseMenuLayer, createAllCells, createDashboardLayer} from './layers.js';
 import Timer from './Timer.js';
 import Controller from "./Controller.js";
 import Cell from './Cell.js';
@@ -115,10 +115,11 @@ async function initialize(){
         createLayer2(cellMap),
         createLayer3(cellMap),
         createLayer4(),
+        createLayer5(),
         createDashboardLayer(font),
         createPauseMenuLayer(font),
     ])
-    .then(([spawners, sndBrd, layer1, layer2, layer3, layer4, dashboardLayer, pauseLayer]) => {
+    .then(([spawners, sndBrd, layer1, layer2, layer3, layer4, layer5, dashboardLayer, pauseLayer]) => {
         globalSoundBoard = sndBrd;
         spawnerSet = spawners;
 
@@ -128,14 +129,9 @@ async function initialize(){
         comp.layers.push(layer2);
         comp.layers.push(layer3);
         comp.layers.push(layer4);
+        comp.layers.push(layer5);
         comp.layers.push(dashboardLayer);
         comp.setPauseLayer(pauseLayer);
-
-        player1 = new Player();
-        const basicWeapon = new Weapon("basicWeapon", 10);
-        const basicFood = new Food('basicFood', 10);
-        player1.weapon = basicWeapon;
-        player1.food = basicFood;
     
         const input = new Controller();
 

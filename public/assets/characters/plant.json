@@ -2,13 +2,8 @@
     "name": "plant",
     "height": 16,
     "width": 32,
-    "spriteSheetLocation": "/assets/img/sprites/plant-01.png",
-    "frames": [
-        {
-            "name": "idle",
-            "rect": [0, 0, 32, 16]
-        }
-    ],
+    "spriteSheetLocation": "/assets/img/sprites/plant-01-sprites.png",
+    "frameDataLocation": "/assets/characters/plant-01-sprites.json",
     "sounds": [
         {
             "name": "kill",
@@ -17,6 +12,7 @@
     ],
     "attributes": {
         "health": 10,
+        "maxHunger": 40,
         "traits": [
             "superGrowth", 
             "poisonPunch"

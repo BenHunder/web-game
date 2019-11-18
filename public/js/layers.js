@@ -14,6 +14,7 @@ import PauseMenu from './PauseMenu.js';
 const gameWidth = 640;
 const gameHeight = 360;
 
+//not used anymore
 export function createBackgroundLayer(){
     const buffer = document.createElement('canvas');
     buffer.width = gameWidth;
@@ -69,7 +70,7 @@ export function createAllCells(){
         createCell('o', new Vec2(8,0), new Vec2(438, 155)),
         createCell('p', new Vec2(9,0), new Vec2(485, 155)),
         createCell('[', new Vec2(10,0), new Vec2(532, 155)),
-        createCell(']', new Vec2(11,0), new Vec2(580, 155)),
+        //createCell(']', new Vec2(11,0), new Vec2(580, 155)),
         createCell('a', new Vec2(0,1), new Vec2(83, 204)),
         createCell('s', new Vec2(1,1), new Vec2(131, 204)),
         createCell('d', new Vec2(2,1), new Vec2(179, 204)),
@@ -80,7 +81,7 @@ export function createAllCells(){
         createCell('k', new Vec2(7,1), new Vec2(414, 204)),
         createCell('l', new Vec2(8,1), new Vec2(462, 204)),
         createCell(';', new Vec2(9,1), new Vec2(509, 204)),
-        createCell('\'', new Vec2(10,1), new Vec2(557, 204)),
+        //createCell('\'', new Vec2(10,1), new Vec2(557, 204)),
         createCell('z', new Vec2(0,2), new Vec2(107, 252)),
         createCell('x', new Vec2(1,2), new Vec2(154, 252)),
         createCell('c', new Vec2(2,2), new Vec2(201, 252)),
@@ -90,11 +91,11 @@ export function createAllCells(){
         createCell('m', new Vec2(6,2), new Vec2(391, 252)),
         createCell(',', new Vec2(7,2), new Vec2(438, 252)),
         createCell('.', new Vec2(8,2), new Vec2(486, 252)),
-        createCell('/', new Vec2(9,2), new Vec2(533, 252)),
+        //createCell('/', new Vec2(9,2), new Vec2(533, 252)),
 
     //]).then(([q,w,e,r,t,y,u,i,o,p,a,s,d,f,g,h,j,k,l,z,x,c,v,b,n,m]) => {
     ]).then((cells) => {
-        const cellMap = new CellMap(12,3);
+        const cellMap = new CellMap(11,3);
         cells.forEach(cell => {
             cellMap.set(cell.name, cell.coordinates, cell);
         })
@@ -128,7 +129,7 @@ export function createLayer1(cellMap){
         cellMap.get('o'),
         cellMap.get('p'),
         cellMap.get('['),
-        cellMap.get(']')
+        //cellMap.get(']')
 
         ])
     .then(layer => {
@@ -148,7 +149,7 @@ export function createLayer2(cellMap){
         cellMap.get('k'),
         cellMap.get('l'),
         cellMap.get(';'),
-        cellMap.get('\'')
+        //cellMap.get('\'')
         ])
     .then(layer => {
         return layer;
@@ -166,7 +167,7 @@ export function createLayer3(cellMap){
         cellMap.get('m'),
         cellMap.get('\,'),
         cellMap.get('.'),
-        cellMap.get('/')
+        //cellMap.get('/')
         ])
     .then(layer => {
         return layer;
@@ -179,3 +180,8 @@ export function createLayer4(){
     });
 }
 
+export function createLayer5(){
+    return createLayer('5', null).then(layer => {
+        return layer;
+    });
+}

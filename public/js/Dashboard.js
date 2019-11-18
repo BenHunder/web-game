@@ -34,7 +34,7 @@ export default class Dashboard extends Layer{
     drawTimer(context){
         const string = 'time: ' + String(Math.floor(this.timer));
         const x = context.canvas.width - string.length * this.font.charWidth - this.margin;
-        const y = this.margin;
+        const y = context.canvas.height - this.font.charHeight - this.margin;
 
         this.font.print(string, context, x, y);
     }
@@ -52,7 +52,7 @@ export default class Dashboard extends Layer{
     drawScore(context){
         const string = 'score: ' + String(this.score);
         const x = context.canvas.width - string.length * this.font.charWidth - this.margin;
-        const y = context.canvas.height - this.font.charHeight - this.margin;
+        const y = this.margin;
 
         this.font.print(string, context, x, y);
     }

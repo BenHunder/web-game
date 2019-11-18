@@ -44,7 +44,7 @@ export default class Cell{
 
     //provides coordinates so it appears that the sprite is standing in the center of the tile using the sprites dimensions
     //TODO is this where the animation frame name would be passed in?
-    drawSprite(context, frameName='idle'){
+    drawSprite(context){
         const yOffset = 5;
         //rounds down to whole number so sprites aren't drawn looking blurry
 
@@ -52,7 +52,7 @@ export default class Cell{
         const x = Math.ceil(this.center.x) - this.creature.width/2;
         const y = Math.ceil(this.center.y) + Math.ceil(this.depth) - this.creature.height + yOffset;
 
-        this.creature.draw(context, frameName, x, y);
+        this.creature.draw(context, x, y);
 
     }
     

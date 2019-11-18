@@ -18,3 +18,9 @@ export const teleport = (creature) => ({
         newCell.teleport(this);
     }.bind(creature)
 })
+
+export const attack = (creature) => ({
+    attack: function attack(entity){
+        entity.damage(this.attackPower);
+    }.bind(creature)
+})
