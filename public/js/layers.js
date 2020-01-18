@@ -6,7 +6,7 @@ import { Vec2 } from './math.js';
 import Layer from './Layer.js';
 import Font from './Font.js';
 import Dashboard from './Dashboard.js'
-import PauseMenu from './PauseMenu.js';
+import Menu from './Menu.js';
 
 // var gameCanvas = document.getElementById('gameCanvas');
 // const gameWidth = gameCanvas.width;
@@ -36,13 +36,13 @@ export function createDashboardLayer(font, player){
 }
 
 //right now this functinon is not asynchronous, but it probably will be because icons and other images will be added
-export function createPauseMenuLayer(font){
+export function createPauseMenu(font){
     const buffer = document.createElement('canvas');
     buffer.width = gameWidth;
     buffer.height = gameHeight;
 
     return loadImage('/assets/img/ui/PauseScreenMockUp.png').then(img => {
-        return new PauseMenu(6, font);
+        return new Menu(6, font);
     });
 }
 

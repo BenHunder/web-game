@@ -128,6 +128,7 @@ export default class CellMap{
     }
 
     allCells(){
+        //should return just cell array? availableCells can filter based on name
         return Array.from(this.letterMap);
     }
 

@@ -1,6 +1,6 @@
 import Compositor from './Compositor.js';
 import {loadLevel, loadSounds, loadFont} from './loaders.js';
-import {createLayer1, createLayer2, createLayer3, createLayer4, createLayer5, createPauseMenuLayer, createAllCells, createDashboardLayer} from './layers.js';
+import {createLayer1, createLayer2, createLayer3, createLayer4, createLayer5, createPauseMenu, createAllCells, createDashboardLayer} from './layers.js';
 import Timer from './Timer.js';
 import Controller from "./Controller.js";
 import Cell from './Cell.js';
@@ -123,9 +123,9 @@ async function initialize(){
         createLayer4(),
         createLayer5(),
         createDashboardLayer(font, player1),
-        createPauseMenuLayer(font),
+        createPauseMenu(font),
     ])
-    .then(([spawners, sndBrd, layer1, layer2, layer3, layer4, layer5, dashboardLayer, pauseLayer]) => {
+    .then(([spawners, sndBrd, layer1, layer2, layer3, layer4, layer5, dashboardLayer, pauseMenu]) => {
         globalSoundBoard = sndBrd;
         spawnerSet = spawners;
 
@@ -137,7 +137,7 @@ async function initialize(){
         comp.layers.push(layer4);
         comp.layers.push(layer5);
         comp.layers.push(dashboardLayer);
-        comp.setPauseLayer(pauseLayer);
+        comp.setPauseMenu(pauseMenu);
     
         const input = new Controller();
 
@@ -149,29 +149,36 @@ async function initialize(){
             }
         });
 
-        // enter pauses and unpauses
+        // enter pauses and selects pauseMenu options
         input.setMapping(13, keyState => {
             if(keyState){
-                togglePause();
+                if(paused){
+                    let action = pauseMenu.selectedOption();
+                    if(action === "resume"){
+                        togglePause();
+                    }else if(action === "start over"){
+                        resetMap();
+                    }else{
+                        togglePause();
+                    }
+                }else{
+                    togglePause();
+                }
             }
         });
 
-        // down arrow switches menu option (changes enter key to reset then, back to toggle pause)
-        //TODO create an array of pause menu options that arrows will cycle through
         input.setMapping(40, keyState => {
             if(keyState){
                 if(paused){
-                    input.setMapping(13, keyState => {
-                        if(keyState){
-                            resetMap(); 
-                            togglePause();
-                            input.setMapping(13, keyState => {
-                                if(keyState){
-                                    togglePause();
-                                }
-                            });
-                        }
-                    });
+                    pauseMenu.scrollDown();
+                }
+            }
+        });
+
+        input.setMapping(38, keyState => {
+            if(keyState){
+                if(paused){
+                    pauseMenu.scrollUp();
                 }
             }
         });
@@ -213,7 +220,8 @@ function start(comp){
             comp.update(deltaTime);
             comp.draw(canvas);
         }else{
-            comp.drawPauseLayer(canvas);
+            comp.draw(canvas);
+            comp.drawPauseMenu(canvas);
         }
     }
     
@@ -223,7 +231,8 @@ function start(comp){
 initialize().then((comp) => start(comp));
 
 function resetMap(){
-    cellMap.forEach(cell => {
+    cellMap.allCells().forEach(cell => {
+        console.log({whatthis: cell});
         cell.reset();
     });
     paused = false;
