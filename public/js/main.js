@@ -107,6 +107,12 @@ async function initialize(){
     cellMap = await createAllCells();
     const font = await loadFont(fontData[0]);
 
+    player1 = new Player();
+    const basicWeapon = new Weapon("basicWeapon", 10);
+    const basicFood = new Food('basicFood', 10);
+    player1.weapon = basicWeapon;
+    player1.food = basicFood;
+
     return Promise.all([
         //loadJson('/assets/levels/testSpawnerObject.json'),
         loadLevel(cellMap, "level1"),
@@ -116,7 +122,7 @@ async function initialize(){
         createLayer3(cellMap),
         createLayer4(),
         createLayer5(),
-        createDashboardLayer(font),
+        createDashboardLayer(font, player1),
         createPauseMenuLayer(font),
     ])
     .then(([spawners, sndBrd, layer1, layer2, layer3, layer4, layer5, dashboardLayer, pauseLayer]) => {
@@ -177,7 +183,7 @@ async function initialize(){
             const cell = cellMap.get(key);
             input.setMapping(keyCodes[n], keyState => {
                 if(keyState){
-                    cell.interact(onWeapon ? player1.weapon : player1.food);
+                    cell.interact(onWeapon ? player1.weapon : player1.food, player1);
                 }else{
                     cell.released();
                 }

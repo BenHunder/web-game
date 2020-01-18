@@ -2,16 +2,15 @@ import Font from './Font.js';
 import Layer from './Layer.js';
 
 export default class Dashboard extends Layer{
-    constructor(zIndex, font){
+    constructor(zIndex, font, player){
         super(zIndex);
         this.font = font;
 
         this.margin = 10;
 
+        this.player = player;
         this.timer = 100;
-        this.health = 50;
         this.level = 1;
-        this.score = 0;
     }
 
     draw(context){
@@ -23,7 +22,7 @@ export default class Dashboard extends Layer{
 
     //draws in the top left corner
     drawHealth(context){
-        const string = 'health: ' + String(Math.floor(this.health));
+        const string = 'health: ' + String(Math.floor(this.player.health));
         const x = this.margin;
         const y = this.margin;
 
@@ -50,7 +49,7 @@ export default class Dashboard extends Layer{
 
     //draws in the bottom right corner
     drawScore(context){
-        const string = 'score: ' + String(this.score);
+        const string = 'score: ' + String(this.player.score);
         const x = context.canvas.width - string.length * this.font.charWidth - this.margin;
         const y = this.margin;
 

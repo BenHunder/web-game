@@ -68,16 +68,17 @@ export default class Cell{
 
     }
 
-    //routes to appropriate trait based on held item and cell state
-    interact(item){
+    //routes to appropriate trait based on held item and cell state, then damages player if an inactive cell is pressed or adds score if a creature is killed
+    interact(item, player){
         if(this.isActive){
             if(item instanceof Weapon){
-                this.attack.start(item);
+                this.attack.start(item, player);
             }else if(item instanceof Food){
-                this.feed.start(item);
+                this.feed.start(item, player);
             }
         }else{
             globalSoundBoard.play('bonkOther');
+            player.damage(5);
         }
     }
 

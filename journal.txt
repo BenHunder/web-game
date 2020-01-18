@@ -31,3 +31,7 @@
 -bug fix: determined that sprite height doesn't have to be a power of two, but it does have to be even otherwise it was blurry. Well that was when I was dividing height by 2, I am guessing that's what caused the problem.
 -TODO: shadows, letters, grass, colors,
 -TODO: implement/experiment with behavior where less creatures spawn if there are already many creatures on the board
+
+---Saturday, January 18, 2020---
+-passing player to cell interaction function so cell can modify player state (damage player if an empty key was pressed, increase their score if a creature was killed)
+-

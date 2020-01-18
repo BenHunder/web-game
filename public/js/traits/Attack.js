@@ -9,20 +9,21 @@ export default class Attack extends Trait {
         this.cell = cell;
     }
 
-    start(weapon){
+    start(weapon, player){
         if(!this.cell.duringSinkingAnimation){
             globalSoundBoard.play('bonkEnemy');
 
             this.cell.creature.health -= weapon.power;
             if(this.cell.creature.health <= 0){
-                this.cell.attack.kill();
+                this.cell.attack.kill(player);
             }
         }
     }
-
-    kill(){
+    //kill creature, the player is passed as an argument so their score will be increased
+    kill(player){
         if(!this.cell.duringSinkingAnimation){
             this.cell.creature.playSound('kill', 80);
+            player.addScore(10);
             this.cell.duringSinkingAnimation = true;
         }
     }

@@ -30,9 +30,9 @@ export function createBackgroundLayer(){
 }
 
 //right now this functinon is not asynchronous, but it probably will be because icons and other images will be added
-export function createDashboardLayer(font){
+export function createDashboardLayer(font, player){
  
-    return new Dashboard(5, font);
+    return new Dashboard(5, font, player);
 }
 
 //right now this functinon is not asynchronous, but it probably will be because icons and other images will be added

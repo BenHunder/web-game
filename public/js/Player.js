@@ -10,7 +10,7 @@ export default class Player{
         this.health -= amount;
     }
 
-    score(amount){
+    addScore(amount){
         this.score += amount;
     }
 }
