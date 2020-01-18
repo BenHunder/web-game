@@ -22,7 +22,7 @@ export function createBackgroundLayer(){
 
     loadImage('/assets/img/game-layout2.png').then(img => {
         buffer.getContext('2d').drawImage(img, 0, 0);
-        console.log(buffer.src);
+        //console.log(buffer.src);
         return function drawBackgroundLayer(context) {
             context.drawImage(buffer, 0, 0);
         }

@@ -23,7 +23,7 @@ export default class Attack extends Trait {
     kill(player){
         if(!this.cell.duringSinkingAnimation){
             this.cell.creature.playSound('kill', 80);
-            player.addScore(10);
+            player.addScore(this.cell.creature.scoreValue);
             this.cell.duringSinkingAnimation = true;
         }
     }

@@ -5,7 +5,7 @@ export default class SpriteSheet{
     } 
 
     define(name, x, y, width, height){
-        console.log(arguments);
+        //console.log(arguments);
         const buffer = document.createElement('canvas');
         buffer.width = width;
         buffer.height = height;

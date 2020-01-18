@@ -22,7 +22,7 @@
             "multiply",
             "teleport"
         ],
-        "isFriendly": true
+        "type": "plant"
     }
     
 

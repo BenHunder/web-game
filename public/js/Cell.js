@@ -34,7 +34,7 @@ export default class Cell{
             context.drawImage(this.buffer, 0, Math.ceil(this.depth));
             if(this.creature){
                 this.drawSprite(context);
-                //context.strokeStyle = this.creature.isFriendly ? '#008000':'#f00';  // some color/style
+                //context.strokeStyle = this.creature.type === "plant" ? '#008000':'#f00';  // some color/style
                 //context.lineWidth = 2;         // thickness
                 //context.strokeRect(x, y, 32, 32);
             }

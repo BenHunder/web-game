@@ -56,7 +56,7 @@ export function loadFrames(spriteSheetLocation, frameDataLocation){
         frameNames.forEach( (frameName, n) => {
             const frame = frameData.frames[frameName].frame;
             sprites.define('frame' + n, frame.x, frame.y, frame.w, frame.h);
-            console.log(sprites.getBuffer(n));
+            //console.log(sprites.getBuffer(n));
         });
         return sprites;
     })

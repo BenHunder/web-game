@@ -20,7 +20,8 @@
             "multiply",
             "teleport",
             "attack"
-        ]
+        ],
+        "type": "enemy"
     }
     
 
