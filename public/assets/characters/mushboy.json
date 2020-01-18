@@ -1,26 +1,9 @@
 {
     "name": "mushboy",
-    "height": 50,
-    "width": 50,
+    "height": 40,
+    "width": 32,
     "spriteSheetLocation": "/assets/img/sprites/mushboy.png",
-    "frames": [
-        {
-            "name": "idle",
-            "rect": [0, 0, 50, 50]
-        },
-        {
-            "name": "attack-1",
-            "rect": [50, 0, 50, 50]
-        },
-        {
-            "name": "attack-2",
-            "rect": [100, 0, 50, 50]
-        },
-        {
-            "name": "attack-3",
-            "rect": [150, 0, 50, 50]
-        }
-    ],
+    "frameDataLocation": "/assets/characters/mushboy-sprites.json",
     "sounds": [
         {
             "name": "kill",
@@ -35,8 +18,10 @@
         ],
         "abilities": [
             "multiply",
-            "teleport"
-        ]
+            "teleport",
+            "attack"
+        ],
+        "type": "enemy"
     }
     
 

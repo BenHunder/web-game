@@ -44,12 +44,19 @@ export function loadFont(fontData){
 }
 
 //loads character sprite sheet and defines each frame
-export function loadFrames(spriteSheetLocation, frames){
-    return loadImage(spriteSheetLocation)
-    .then(image => {
+export function loadFrames(spriteSheetLocation, frameDataLocation){
+
+    return Promise.all([
+        loadImage(spriteSheetLocation),
+        loadJson(frameDataLocation)
+    ])
+    .then(([image, frameData]) => {
         const sprites = new SpriteSheet(image);
-        frames.forEach( frame => {
-            sprites.define(frame.name, ...frame.rect);
+        const frameNames = Object.keys(frameData.frames);
+        frameNames.forEach( (frameName, n) => {
+            const frame = frameData.frames[frameName].frame;
+            sprites.define('frame' + n, frame.x, frame.y, frame.w, frame.h);
+            //console.log(sprites.getBuffer(n));
         });
         return sprites;
     })
@@ -117,7 +124,7 @@ export function loadCreature(creatureName){
     return loadJson(creatureLocations[creatureName])
     .then( creature => {
         return Promise.all([
-            loadFrames(creature.spriteSheetLocation, creature.frames),
+            loadFrames(creature.spriteSheetLocation, creature.frameDataLocation),
             loadSounds(creature.sounds)
         ])
         .then( ([spriteSheet, soundBoard]) => {

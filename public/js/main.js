@@ -1,6 +1,6 @@
 import Compositor from './Compositor.js';
 import {loadLevel, loadSounds, loadFont} from './loaders.js';
-import {createLayer1, createLayer2, createLayer3, createLayer4, createPauseMenuLayer, createAllCells, createDashboardLayer} from './layers.js';
+import {createLayer1, createLayer2, createLayer3, createLayer4, createLayer5, createPauseMenuLayer, createAllCells, createDashboardLayer} from './layers.js';
 import Timer from './Timer.js';
 import Controller from "./Controller.js";
 import Cell from './Cell.js';
@@ -10,6 +10,48 @@ import Food from './Food.js';
  
 let log = console.log;
 const canvas = document.getElementById('gameCanvas').getContext('2d');
+
+//shows the mouse coordinates in chrome
+document.onmousemove = function(e){
+    var x = e.pageX;
+    var y = e.pageY;
+    e.target.title = "X is "+x+" and Y is "+y;
+};
+
+function resizeGame() {
+    const gameContainer = document.getElementById('gameContainer');
+    const widthToHeight = 16 / 9;
+    let newWidth = window.innerWidth;
+    let newHeight = window.innerHeight;
+    let newWidthToHeight = newWidth / newHeight;
+    
+    console.log(newWidthToHeight, widthToHeight)
+    if (newWidthToHeight > widthToHeight) {
+        console.log({newWidth})
+        console.log({newHeight})
+        console.log({newWidthToHeight})
+        newWidth = newHeight * widthToHeight;
+        console.log("-----");
+        console.log({newWidth})
+        gameContainer.style.height = newHeight + 'px';
+        gameContainer.style.width = newWidth + 'px';
+    } else {
+        newHeight = newWidth / widthToHeight;
+        gameContainer.style.width = newWidth + 'px';
+        gameContainer.style.height = newHeight + 'px';
+    }
+    
+    //gameContainer.style.marginTop = (-newHeight / 2) + 'px';
+    gameContainer.style.marginLeft = (-newWidth / 2) + 'px';
+    
+    const gameCanvas = document.getElementById('gameCanvas');
+    gameCanvas.width = newWidth;
+    gameCanvas.height = newHeight;
+}
+
+//resizeGame();
+//window.addEventListener('resize', resizeGame, false);
+//window.addEventListener('orientationchange', resizeGame, false);
 
 export let cellMap;
 let spawnerSet;
@@ -65,6 +107,12 @@ async function initialize(){
     cellMap = await createAllCells();
     const font = await loadFont(fontData[0]);
 
+    player1 = new Player();
+    const basicWeapon = new Weapon("basicWeapon", 10);
+    const basicFood = new Food('basicFood', 10);
+    player1.weapon = basicWeapon;
+    player1.food = basicFood;
+
     return Promise.all([
         //loadJson('/assets/levels/testSpawnerObject.json'),
         loadLevel(cellMap, "level1"),
@@ -73,10 +121,11 @@ async function initialize(){
         createLayer2(cellMap),
         createLayer3(cellMap),
         createLayer4(),
-        createDashboardLayer(font),
+        createLayer5(),
+        createDashboardLayer(font, player1),
         createPauseMenuLayer(font),
     ])
-    .then(([spawners, sndBrd, layer1, layer2, layer3, layer4, dashboardLayer, pauseLayer]) => {
+    .then(([spawners, sndBrd, layer1, layer2, layer3, layer4, layer5, dashboardLayer, pauseLayer]) => {
         globalSoundBoard = sndBrd;
         spawnerSet = spawners;
 
@@ -86,14 +135,9 @@ async function initialize(){
         comp.layers.push(layer2);
         comp.layers.push(layer3);
         comp.layers.push(layer4);
+        comp.layers.push(layer5);
         comp.layers.push(dashboardLayer);
         comp.setPauseLayer(pauseLayer);
-
-        player1 = new Player();
-        const basicWeapon = new Weapon("basicWeapon", 10);
-        const basicFood = new Food('basicFood', 10);
-        player1.weapon = basicWeapon;
-        player1.food = basicFood;
     
         const input = new Controller();
 
@@ -133,12 +177,19 @@ async function initialize(){
         });
 
         //map each key to the corresponding cell function
-        const letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-        letters.forEach(key => {
+        //contains ]'/
+        //const letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','[',']',';','\'','\,','.','/'];
+        //const keyCodes = [65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,219,221,186,222,188,190,191];
+        
+        //]'/ removed
+        const letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','[',';','\,','.'];
+        const keyCodes = [65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,219,186,188,190];
+        
+        letters.forEach((key, n) => {
             const cell = cellMap.get(key);
-            input.setMapping(key.charCodeAt(0)-32, keyState => {
+            input.setMapping(keyCodes[n], keyState => {
                 if(keyState){
-                    cell.interact(onWeapon ? player1.weapon : player1.food);
+                    cell.interact(onWeapon ? player1.weapon : player1.food, player1);
                 }else{
                     cell.released();
                 }

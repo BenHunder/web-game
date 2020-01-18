@@ -15,7 +15,7 @@ export default class Feed extends Trait {
     start(food){
         globalSoundBoard.play('feed');
 
-        this.cell.creature.teleport(cellMap, this.cell);
+        //this.cell.creature.teleport(cellMap, this.cell);
         this.cell.creature.hunger += food.power;  
         if(this.cell.creature.hunger > this.cell.creature.maxHunger){
             this.cell.creature.hunger = this.cell.creature.maxHunger;
@@ -27,7 +27,7 @@ export default class Feed extends Trait {
     }
 
     update(deltaTime){
-        if(this.cell.isActive && this.cell.creature.isFriendly){
+        if(this.cell.isActive && this.cell.creature.type === "plant"){
             this.cell.creature.hunger -= this.cell.creature.hungerRate * deltaTime;
             if(!this.cell.duringSinkingAnimation && this.cell.creature.hunger <= 0){
                 this.cell.feed.kill();

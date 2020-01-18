@@ -5,6 +5,7 @@ export default class SpriteSheet{
     } 
 
     define(name, x, y, width, height){
+        //console.log(arguments);
         const buffer = document.createElement('canvas');
         buffer.width = width;
         buffer.height = height;
@@ -19,6 +20,10 @@ export default class SpriteSheet{
             width,
             height); 
         this.tiles.set(name, buffer);
+    }
+
+    size(){
+        return this.tiles.size;
     }
 
     getBuffer(name){

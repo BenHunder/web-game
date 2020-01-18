@@ -24,5 +24,16 @@
 -Got font and dashboard working, I am getting a little concerned about performance here because my fan is starting to run. Maybe its unrelated, but maybe optimization efforts should focus here first (on font and dashboard)
 
 ---Tuesday, July 16, 2019---
--working on the new canvas, deciding to make it very large cells will be 80px wide to accomodate 64px sprites
--created new "big-canvas" branch to try the new canvas on. Will keep master as a stable working project.
+-created new branch "big-canvas" (even though its actually smaller) for expirimentaion
+-decided on 640x360 (16:9) canvas size with 32x32 sprites. Based on research and experimentation, I've come to the conclusion that pixel art can always scale up, but it can't scale down.
+
+---Monday, July 22, 2019---
+-bug fix: determined that sprite height doesn't have to be a power of two, but it does have to be even otherwise it was blurry. Well that was when I was dividing height by 2, I am guessing that's what caused the problem.
+-TODO: shadows, letters, grass, colors,
+-TODO: implement/experiment with behavior where less creatures spawn if there are already many creatures on the board
+
+---Saturday, January 18, 2020---
+-passing player to cell interaction function so cell can modify player state (damage player if an empty key was pressed, increase their score if a creature was killed)
+-added scoreValue to creature json, so killing different types of creatures can result in different increments of player's score
+-changed isFriendly attribute of creatures to 'type'. os far types are "plant" or "enemy" plants decay, and need to be fed and don't increase score if killed. creatures can be killed, and will increase player's score by their scoreValue.
+-TODO: look into chrome memory usage? make sure cell.reset() is allowing objects to be garbage collected.

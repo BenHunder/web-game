@@ -34,7 +34,7 @@ export default class Cell{
             context.drawImage(this.buffer, 0, Math.ceil(this.depth));
             if(this.creature){
                 this.drawSprite(context);
-                //context.strokeStyle = this.creature.isFriendly ? '#008000':'#f00';  // some color/style
+                //context.strokeStyle = this.creature.type === "plant" ? '#008000':'#f00';  // some color/style
                 //context.lineWidth = 2;         // thickness
                 //context.strokeRect(x, y, 32, 32);
             }
@@ -44,15 +44,15 @@ export default class Cell{
 
     //provides coordinates so it appears that the sprite is standing in the center of the tile using the sprites dimensions
     //TODO is this where the animation frame name would be passed in?
-    drawSprite(context, frameName='idle'){
-        const yOffset = 0;
+    drawSprite(context){
+        const yOffset = 5;
         //rounds down to whole number so sprites aren't drawn looking blurry
 
         //TODO: once board is set, this should draw in the lower left corner of each cell
         const x = Math.ceil(this.center.x) - this.creature.width/2;
-        const y = Math.ceil(this.center.y) + Math.ceil(this.depth) - this.creature.height/2 + yOffset;
+        const y = Math.ceil(this.center.y) + Math.ceil(this.depth) - this.creature.height + yOffset;
 
-        this.creature.draw(context, frameName, x, y);
+        this.creature.draw(context, x, y);
 
     }
     
@@ -68,16 +68,17 @@ export default class Cell{
 
     }
 
-    //routes to appropriate trait based on held item and cell state
-    interact(item){
+    //routes to appropriate trait based on held item and cell state, then damages player if an inactive cell is pressed or adds score if a creature is killed
+    interact(item, player){
         if(this.isActive){
             if(item instanceof Weapon){
-                this.attack.start(item);
+                this.attack.start(item, player);
             }else if(item instanceof Food){
-                this.feed.start(item);
+                this.feed.start(item, player);
             }
         }else{
             globalSoundBoard.play('bonkOther');
+            player.damage(5);
         }
     }
 

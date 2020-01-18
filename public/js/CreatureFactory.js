@@ -14,10 +14,12 @@ export class CreatureFactory{
         this.width = width;
         this.height = height;
         this.health = attributes.health || 20;
-        this.hunger = attributes.hunger || 20;
         this.maxHunger = attributes.maxHunger || 20;
+        this.hunger = this.maxHunger;
         this.hungerRate = attributes.hungerRate || 1;
-        this.isFriendly = false;
+        this.type = attributes.type;
+        //scoreValue is how many points a player receives if they kill this creature. If creature is an enemy, scoreValue will be defaulted to 10.
+        this.scoreValue = attributes.scoreValue || this.type === "enemy" ? 10 : 0;
         
         this.traits = attributes.traits || [];
         this.abilities = attributes.abilities || [];
@@ -34,7 +36,8 @@ export class CreatureFactory{
         creature.hunger = this.hunger
         creature.maxHunger = this.maxHunger;
         creature.hungerRate = this.hungerRate;
-        creature.isFriendly = this.isFriendly;
+        creature.type = this.type;
+        creature.scoreValue = this.scoreValue;
         creature.creatureFactory = this;
         creature.abilities = this.abilities;
 

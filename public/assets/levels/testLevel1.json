@@ -14,12 +14,12 @@
     "spawners": [
         {
             "type": "mushboy",
-            "spawnRate": 2.5,
+            "spawnRate": 2,
             "spawnVariance": 1
         },
         {
             "type": "plant",
-            "spawnRate": 5,
+            "spawnRate": 7,
             "spawnVariance": 1
         }
     ]
