@@ -1,5 +1,5 @@
-import { Vec2 } from "./math.js";
-import {getRandomInt} from './math.js';
+import { Vec2 } from "../math.js";
+import {getRandomInt} from '../math.js';
 
 //im sure there are better ways to do this, but this makes sense to me at this moment so, I'm rolling with it.
 //cellMap contains a map so you can access cells by their corresponding letter (the key) and it contains a two dimensional array (this.grid) so cells can be accessed by x,y coordinates and math can be done to get neightboring cells
@@ -128,7 +128,6 @@ export default class CellMap{
     }
 
     allCells(){
-        //should return just cell array? availableCells can filter based on name
         return Array.from(this.letterMap);
     }
 

@@ -3,8 +3,8 @@ import Feed from './traits/Feed.js';
 import Spawn from './traits/Spawn.js';
 import Weapon from './Weapon.js';
 import Food from './Food.js';
-import { globalSoundBoard, cellMap } from './main.js';
-import { Vec2 } from './math.js';
+import { globalSoundBoard, cellMap } from '../main.js';
+import { Vec2 } from '../math.js';
 
 export default class Cell{
     constructor(name, coordinates, center, buffer){

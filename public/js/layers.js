@@ -1,12 +1,12 @@
 import { loadImage } from './loaders.js';
 import { loadFont } from './loaders.js';
-import Cell from './Cell.js';
-import CellMap from './CellMap.js'
+import Cell from './classes/Cell.js';
+import CellMap from './classes/CellMap.js'
 import { Vec2 } from './math.js';
-import Layer from './Layer.js';
-import Font from './Font.js';
-import Dashboard from './Dashboard.js'
-import Menu from './Menu.js';
+import Layer from './classes/Layer.js';
+import Font from './classes/Font.js';
+import Dashboard from './classes/Dashboard.js'
+import Menu from './classes/Menu.js';
 
 // var gameCanvas = document.getElementById('gameCanvas');
 // const gameWidth = gameCanvas.width;
@@ -30,9 +30,9 @@ export function createBackgroundLayer(){
 }
 
 //right now this functinon is not asynchronous, but it probably will be because icons and other images will be added
-export function createDashboardLayer(font, player){
+export function createDashboardLayer(font, player, game){
  
-    return new Dashboard(5, font, player);
+    return new Dashboard(5, font, player, game);
 }
 
 //right now this functinon is not asynchronous, but it probably will be because icons and other images will be added

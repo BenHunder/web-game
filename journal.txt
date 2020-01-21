@@ -37,3 +37,6 @@
 -added scoreValue to creature json, so killing different types of creatures can result in different increments of player's score
 -changed isFriendly attribute of creatures to 'type'. so far types are "plant" or "enemy" plants decay, and need to be fed and don't increase score if killed. creatures can be killed, and will increase player's score by their scoreValue.
 -TODO: look into chrome memory usage? make sure cell.reset() is allowing objects to be garbage collected.
+
+---Monday, January 20, 2020---
+-moved files, game restart

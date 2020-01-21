@@ -1,8 +1,8 @@
-import SpriteSheet from './SpriteSheet.js';
-import SoundBoard from './SoundBoard.js';
-import { CreatureFactory } from './CreatureFactory.js';
-import { Spawner } from './Spawner.js';
-import Font from './Font.js';
+import SpriteSheet from './classes/SpriteSheet.js';
+import SoundBoard from './classes/SoundBoard.js';
+import { CreatureFactory } from './classes/CreatureFactory.js';
+import { Spawner } from './classes/Spawner.js';
+import Font from './classes/Font.js';
 
 
 //TODO probably move or REMOVE later (maybe make all creature's file name their type.json, maybe keep it this way to use different character versions or something?)

@@ -1,5 +1,5 @@
-import Trait from '../Trait.js';
-import {globalSoundBoard} from '../main.js';
+import Trait from './Trait.js';
+import {globalSoundBoard} from '../../main.js';
 
 export default class Attack extends Trait {
     constructor(cell){

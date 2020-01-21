@@ -1,12 +1,14 @@
-import Compositor from './Compositor.js';
+import Compositor from './classes/Compositor.js';
 import {loadLevel, loadSounds, loadFont} from './loaders.js';
 import {createLayer1, createLayer2, createLayer3, createLayer4, createLayer5, createPauseMenu, createAllCells, createDashboardLayer} from './layers.js';
-import Timer from './Timer.js';
-import Controller from "./Controller.js";
-import Cell from './Cell.js';
-import Player from './Player.js';
-import Weapon from './Weapon.js';
-import Food from './Food.js';
+import Timer from './classes/Timer.js';
+import Controller from "./classes/Controller.js";
+import Cell from './classes/Cell.js';
+import Player from './classes/Player.js';
+import Weapon from './classes/Weapon.js';
+import Food from './classes/Food.js';
+import Game from './classes/Game.js';
+
  
 let log = console.log;
 const canvas = document.getElementById('gameCanvas').getContext('2d');
@@ -90,8 +92,8 @@ const fontData = [
 ]
 
 let player1;
+let game;
 let paused = false;
-let pauseOptions = [togglePause, resetMap];
 let pauseIndex = 0;
 let onWeapon = true;
 function toggleWeapon(){
@@ -107,11 +109,8 @@ async function initialize(){
     cellMap = await createAllCells();
     const font = await loadFont(fontData[0]);
 
-    player1 = new Player();
-    const basicWeapon = new Weapon("basicWeapon", 10);
-    const basicFood = new Food('basicFood', 10);
-    player1.weapon = basicWeapon;
-    player1.food = basicFood;
+    initializePlayer();
+    initializeGame();
 
     return Promise.all([
         //loadJson('/assets/levels/testSpawnerObject.json'),
@@ -122,7 +121,7 @@ async function initialize(){
         createLayer3(cellMap),
         createLayer4(),
         createLayer5(),
-        createDashboardLayer(font, player1),
+        createDashboardLayer(font, player1, game),
         createPauseMenu(font),
     ])
     .then(([spawners, sndBrd, layer1, layer2, layer3, layer4, layer5, dashboardLayer, pauseMenu]) => {
@@ -137,6 +136,7 @@ async function initialize(){
         comp.layers.push(layer4);
         comp.layers.push(layer5);
         comp.layers.push(dashboardLayer);
+        console.log({comp})
         comp.setPauseMenu(pauseMenu);
     
         const input = new Controller();
@@ -157,7 +157,7 @@ async function initialize(){
                     if(action === "resume"){
                         togglePause();
                     }else if(action === "start over"){
-                        resetMap();
+                        resetLevel();
                     }else{
                         togglePause();
                     }
@@ -230,11 +230,28 @@ function start(comp){
 
 initialize().then((comp) => start(comp));
 
-function resetMap(){
-    cellMap.allCells().forEach(cell => {
-        console.log({whatthis: cell});
+function initializePlayer(){
+    player1 = new Player();
+    const basicWeapon = new Weapon("basicWeapon", 10);
+    const basicFood = new Food('basicFood', 10);
+    player1.weapon = basicWeapon;
+    player1.food = basicFood;
+}
+
+function initializeGame(){
+    game = new Game();
+
+}
+
+function resetLevel(){
+    cellMap.allCells().forEach(([name, cell]) => {
         cell.reset();
     });
+
+    player1.reset();
+    game.reset();
     paused = false;
 }
+
+
 
