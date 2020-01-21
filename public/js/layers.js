@@ -42,7 +42,36 @@ export function createPauseMenu(font){
     buffer.height = gameHeight;
 
     return loadImage('/assets/img/ui/PauseScreenMockUp.png').then(img => {
-        return new Menu(6, font);
+        let options = [
+            {
+                'label': 'resume'
+            },
+            {
+                'label': 'start over'
+            },
+            {
+                'label': 'quit'
+            }
+        ]
+        return new Menu(font, options);
+    });
+}
+
+export function createLoseMenu(font){
+    const buffer = document.createElement('canvas');
+    buffer.width = gameWidth;
+    buffer.height = gameHeight;
+
+    return loadImage('/assets/img/ui/PauseScreenMockUp.png').then(img => {
+        let options = [
+            {
+                'label': 'start over'
+            },
+            {
+                'label': 'quit'
+            }
+        ]
+        return new Menu(font, options);
     });
 }
 

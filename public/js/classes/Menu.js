@@ -2,8 +2,10 @@ import Font from './Font.js';
 import Layer from './Layer.js';
 
 export default class Menu extends Layer{
-    constructor(zIndex, font){
-        super(zIndex);
+    constructor(font, options){
+        //menu will go on top of everything else (assuming there won't be more than 100 layers here)
+        super(100);
+
         this.font = font;
         this.x = 250;
         this.y = 125;
@@ -12,17 +14,7 @@ export default class Menu extends Layer{
         //TODO: once art is created for pause menu, that should be stored here and drawn
         //this.backgroundImage = backgroundImage;
 
-        this.options = [
-            {
-                'label': 'resume'
-            },
-            {
-                'label': 'start over'
-            },
-            {
-                'label': 'quit'
-            }
-        ]
+        this.options = options;
 
         this.selected = 0;
     }

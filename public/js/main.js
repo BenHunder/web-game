@@ -1,6 +1,6 @@
 import Compositor from './classes/Compositor.js';
 import {loadLevel, loadSounds, loadFont} from './loaders.js';
-import {createLayer1, createLayer2, createLayer3, createLayer4, createLayer5, createPauseMenu, createAllCells, createDashboardLayer} from './layers.js';
+import {createLayer1, createLayer2, createLayer3, createLayer4, createLayer5, createAllCells, createDashboardLayer, createPauseMenu, createLoseMenu} from './layers.js';
 import Timer from './classes/Timer.js';
 import Controller from "./classes/Controller.js";
 import Cell from './classes/Cell.js';
@@ -93,6 +93,8 @@ const fontData = [
 
 let player1;
 let game;
+let pauseMenu;
+let loseMenu;
 let paused = false;
 let pauseIndex = 0;
 let onWeapon = true;
@@ -101,6 +103,12 @@ function toggleWeapon(){
 }
 function togglePause(){
     paused = !paused;
+}
+function pause(){
+    paused = true;
+}
+function unpause(){
+    paused = false;
 }
 
 
@@ -123,8 +131,9 @@ async function initialize(){
         createLayer5(),
         createDashboardLayer(font, player1, game),
         createPauseMenu(font),
+        createLoseMenu(font)
     ])
-    .then(([spawners, sndBrd, layer1, layer2, layer3, layer4, layer5, dashboardLayer, pauseMenu]) => {
+    .then(([spawners, sndBrd, layer1, layer2, layer3, layer4, layer5, dashboardLayer, pMenu, lMenu]) => {
         globalSoundBoard = sndBrd;
         spawnerSet = spawners;
 
@@ -137,7 +146,9 @@ async function initialize(){
         comp.layers.push(layer5);
         comp.layers.push(dashboardLayer);
         console.log({comp})
-        comp.setPauseMenu(pauseMenu);
+        pauseMenu = pMenu;
+        loseMenu = lMenu;
+        comp.setMenu(pauseMenu);
     
         const input = new Controller();
 
@@ -153,16 +164,18 @@ async function initialize(){
         input.setMapping(13, keyState => {
             if(keyState){
                 if(paused){
-                    let action = pauseMenu.selectedOption();
+                    let action = comp.menu.selectedOption();
                     if(action === "resume"){
-                        togglePause();
+                        unpause();
                     }else if(action === "start over"){
                         resetLevel();
-                    }else{
-                        togglePause();
+                        paused = false;
+                    }else if(action === "quit"){
+                        //quit to main menu
                     }
                 }else{
-                    togglePause();
+                    comp.setMenu(pauseMenu);
+                    pause();
                 }
             }
         });
@@ -170,7 +183,7 @@ async function initialize(){
         input.setMapping(40, keyState => {
             if(keyState){
                 if(paused){
-                    pauseMenu.scrollDown();
+                    comp.menu.scrollDown();
                 }
             }
         });
@@ -178,7 +191,7 @@ async function initialize(){
         input.setMapping(38, keyState => {
             if(keyState){
                 if(paused){
-                    pauseMenu.scrollUp();
+                    comp.menu.scrollUp();
                 }
             }
         });
@@ -196,7 +209,9 @@ async function initialize(){
             const cell = cellMap.get(key);
             input.setMapping(keyCodes[n], keyState => {
                 if(keyState){
-                    cell.interact(onWeapon ? player1.weapon : player1.food, player1);
+                    if(!paused){
+                        cell.interact(onWeapon ? player1.weapon : player1.food, player1);
+                    }
                 }else{
                     cell.released();
                 }
@@ -219,9 +234,15 @@ function start(comp){
             spawnerSet.forEach( spawner => spawner.update(deltaTime));
             comp.update(deltaTime);
             comp.draw(canvas);
+
+            if(player1.health <= 0 || game.timer <= 0){
+                comp.menu = loseMenu;
+                pause();
+                resetLevel();
+            }
         }else{
             comp.draw(canvas);
-            comp.drawPauseMenu(canvas);
+            comp.drawMenu(canvas);
         }
     }
     
@@ -250,7 +271,6 @@ function resetLevel(){
 
     player1.reset();
     game.reset();
-    paused = false;
 }
 
 

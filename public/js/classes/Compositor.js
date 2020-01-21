@@ -1,7 +1,7 @@
 export default class Compositor{
     constructor(){
         this.layers = [];  
-        this.pauseMenu = null;    
+        this.menu = null;    
         this.paused = false;  
     }
 
@@ -11,8 +11,8 @@ export default class Compositor{
         })
     }
 
-    drawPauseMenu(context){
-        this.pauseMenu.draw(context);
+    drawMenu(context){
+        this.menu.draw(context);
     }
 
     update(deltaTime){
@@ -21,8 +21,9 @@ export default class Compositor{
         });
     }
 
-    setPauseMenu(pauseMenu){
-        this.pauseMenu = pauseMenu;
+    setMenu(menu){
+        this.menu = menu;
+        this.menu.selected = 0;
     }
     
 
