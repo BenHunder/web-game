@@ -42,10 +42,14 @@
 -moved files, game restart
 -creating lose menu, ability to display different menus
 -pause and game over pretty much fully functional!
--TODO: add heading to Menu (game over, paused etc)
--TODO: main menu, level selection IDEA: use keyboard layout for level selection? maybe even other menus?
+-TODO: level selection IDEA: use keyboard layout for level selection? maybe even other menus?
 -move key mappings to a different file? clean up?
 -IDEA: NAMES: 1) Key Stroke 2) Key Kommand 
 -IDEA: can assign specials to different combinations of keys
 -IDEA: more futuristic computery style
 -IDEA: ask ergodox to promote?
+
+---Wedesday, Jan 22, 2020---
+-added larger font for heading, might want to add two font sizes in the same font class?
+-main menu and quit function
+-TODO: 100 vs 99 timer on start screen

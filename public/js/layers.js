@@ -36,7 +36,25 @@ export function createDashboardLayer(font, player, game){
 }
 
 //right now this functinon is not asynchronous, but it probably will be because icons and other images will be added
-export function createPauseMenu(font){
+export function createStartMenu(font, fontLarge){
+    const buffer = document.createElement('canvas');
+    buffer.width = gameWidth;
+    buffer.height = gameHeight;
+
+    return loadImage('/assets/img/ui/PauseScreenMockUp.png').then(img => {
+        let options = [
+            {
+                'label': 'start'
+            },
+            {
+                'label': 'settings'
+            }
+        ]
+        return new Menu(font, fontLarge, 'GAME TITLE', options);
+    });
+}
+
+export function createPauseMenu(font, fontLarge){
     const buffer = document.createElement('canvas');
     buffer.width = gameWidth;
     buffer.height = gameHeight;
@@ -47,17 +65,17 @@ export function createPauseMenu(font){
                 'label': 'resume'
             },
             {
-                'label': 'start over'
+                'label': 'restart'
             },
             {
                 'label': 'quit'
             }
         ]
-        return new Menu(font, options);
+        return new Menu(font, fontLarge, 'PAUSED', options);
     });
 }
 
-export function createLoseMenu(font){
+export function createLoseMenu(font, fontLarge){
     const buffer = document.createElement('canvas');
     buffer.width = gameWidth;
     buffer.height = gameHeight;
@@ -65,13 +83,31 @@ export function createLoseMenu(font){
     return loadImage('/assets/img/ui/PauseScreenMockUp.png').then(img => {
         let options = [
             {
-                'label': 'start over'
+                'label': 'restart'
             },
             {
                 'label': 'quit'
             }
         ]
-        return new Menu(font, options);
+        return new Menu(font, fontLarge, 'YOU LOSE', options);
+    });
+}
+
+export function createWinMenu(font, fontLarge){
+    const buffer = document.createElement('canvas');
+    buffer.width = gameWidth;
+    buffer.height = gameHeight;
+
+    return loadImage('/assets/img/ui/PauseScreenMockUp.png').then(img => {
+        let options = [
+            {
+                'label': 'next'
+            },
+            {
+                'label': 'restart'
+            }
+        ]
+        return new Menu(font, fontLarge, 'YOU WIN', options);
     });
 }
 

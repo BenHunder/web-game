@@ -1,6 +1,6 @@
 import Compositor from './classes/Compositor.js';
 import {loadLevel, loadSounds, loadFont} from './loaders.js';
-import {createLayer1, createLayer2, createLayer3, createLayer4, createLayer5, createAllCells, createDashboardLayer, createPauseMenu, createLoseMenu} from './layers.js';
+import {createLayer1, createLayer2, createLayer3, createLayer4, createLayer5, createAllCells, createDashboardLayer, createStartMenu, createPauseMenu, createLoseMenu, createWinMenu} from './layers.js';
 import Timer from './classes/Timer.js';
 import Controller from "./classes/Controller.js";
 import Cell from './classes/Cell.js';
@@ -84,6 +84,12 @@ const fontData = [
         'charHeight': 24
     },
     {
+        'name': 'manaspace-large',
+        'location': '../assets/img/fonts/manaspace/manaspace-large.png',
+        'charWidth': 24,
+        'charHeight': 36
+    },
+    {
         'name': 'lunchtime',
         'location': '../assets/img/fonts/lunchtime/lunchtime.png',
         'charWidth': 18,
@@ -93,9 +99,11 @@ const fontData = [
 
 let player1;
 let game;
+let startMenu;
 let pauseMenu;
 let loseMenu;
-let paused = false;
+let winMenu;
+let paused = true;
 let pauseIndex = 0;
 let onWeapon = true;
 function toggleWeapon(){
@@ -116,6 +124,7 @@ function unpause(){
 async function initialize(){
     cellMap = await createAllCells();
     const font = await loadFont(fontData[0]);
+    const fontLarge = await loadFont(fontData[1]);
 
     initializePlayer();
     initializeGame();
@@ -130,10 +139,12 @@ async function initialize(){
         createLayer4(),
         createLayer5(),
         createDashboardLayer(font, player1, game),
-        createPauseMenu(font),
-        createLoseMenu(font)
+        createStartMenu(font, fontLarge),
+        createPauseMenu(font, fontLarge),
+        createLoseMenu(font, fontLarge),
+        createWinMenu(font, fontLarge)
     ])
-    .then(([spawners, sndBrd, layer1, layer2, layer3, layer4, layer5, dashboardLayer, pMenu, lMenu]) => {
+    .then(([spawners, sndBrd, layer1, layer2, layer3, layer4, layer5, dashboardLayer, sMenu, pMenu, lMenu, wMenu]) => {
         globalSoundBoard = sndBrd;
         spawnerSet = spawners;
 
@@ -146,9 +157,11 @@ async function initialize(){
         comp.layers.push(layer5);
         comp.layers.push(dashboardLayer);
         console.log({comp})
+        startMenu = sMenu;
         pauseMenu = pMenu;
         loseMenu = lMenu;
-        comp.setMenu(pauseMenu);
+        winMenu = wMenu;
+        comp.setMenu(startMenu);
     
         const input = new Controller();
 
@@ -165,13 +178,14 @@ async function initialize(){
             if(keyState){
                 if(paused){
                     let action = comp.menu.selectedOption();
-                    if(action === "resume"){
+                    if(action === "resume" || action === "start"){
                         unpause();
-                    }else if(action === "start over"){
+                    }else if(action === "restart"){
                         resetLevel();
                         paused = false;
                     }else if(action === "quit"){
-                        //quit to main menu
+                        resetLevel();
+                        comp.setMenu(startMenu)
                     }
                 }else{
                     comp.setMenu(pauseMenu);
