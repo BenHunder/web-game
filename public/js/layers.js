@@ -54,6 +54,24 @@ export function createStartMenu(font, fontLarge){
     });
 }
 
+export function createLevelMenu(font, fontLarge){
+    const buffer = document.createElement('canvas');
+    buffer.width = gameWidth;
+    buffer.height = gameHeight;
+
+    return loadImage('/assets/img/ui/PauseScreenMockUp.png').then(img => {
+        let options = [
+            {
+                'label': 'level 1'
+            },
+            {
+                'label': 'level 2'
+            }
+        ]
+        return new Menu(font, fontLarge, 'SELECT LEVEL', options);
+    });
+}
+
 export function createPauseMenu(font, fontLarge){
     const buffer = document.createElement('canvas');
     buffer.width = gameWidth;

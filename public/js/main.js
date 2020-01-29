@@ -1,6 +1,6 @@
 import Compositor from './classes/Compositor.js';
 import {loadLevel, loadSounds, loadFont} from './loaders.js';
-import {createLayer1, createLayer2, createLayer3, createLayer4, createLayer5, createAllCells, createDashboardLayer, createStartMenu, createPauseMenu, createLoseMenu, createWinMenu} from './layers.js';
+import {createLayer1, createLayer2, createLayer3, createLayer4, createLayer5, createAllCells, createDashboardLayer, createStartMenu, createLevelMenu, createPauseMenu, createLoseMenu, createWinMenu} from './layers.js';
 import Timer from './classes/Timer.js';
 import Controller from "./classes/Controller.js";
 import Cell from './classes/Cell.js';
@@ -100,6 +100,7 @@ const fontData = [
 let player1;
 let game;
 let startMenu;
+let levelMenu;
 let pauseMenu;
 let loseMenu;
 let winMenu;
@@ -131,7 +132,7 @@ async function initialize(){
 
     return Promise.all([
         //loadJson('/assets/levels/testSpawnerObject.json'),
-        loadLevel(cellMap, "level1"),
+        loadLevel(cellMap, "level 1"),
         loadSounds(soundNames),
         createLayer1(cellMap),
         createLayer2(cellMap),
@@ -140,11 +141,12 @@ async function initialize(){
         createLayer5(),
         createDashboardLayer(font, player1, game),
         createStartMenu(font, fontLarge),
+        createLevelMenu(font, fontLarge),
         createPauseMenu(font, fontLarge),
         createLoseMenu(font, fontLarge),
         createWinMenu(font, fontLarge)
     ])
-    .then(([spawners, sndBrd, layer1, layer2, layer3, layer4, layer5, dashboardLayer, sMenu, pMenu, lMenu, wMenu]) => {
+    .then(([spawners, sndBrd, layer1, layer2, layer3, layer4, layer5, dashboardLayer, sMenu, vMenu, pMenu, lMenu, wMenu]) => {
         globalSoundBoard = sndBrd;
         spawnerSet = spawners;
 
@@ -158,6 +160,7 @@ async function initialize(){
         comp.layers.push(dashboardLayer);
         console.log({comp})
         startMenu = sMenu;
+        levelMenu = vMenu;
         pauseMenu = pMenu;
         loseMenu = lMenu;
         winMenu = wMenu;
@@ -178,14 +181,23 @@ async function initialize(){
             if(keyState){
                 if(paused){
                     let action = comp.menu.selectedOption();
-                    if(action === "resume" || action === "start"){
+                    if(action === "resume"){
                         unpause();
+                    }else if(action === "start"){
+                        comp.setMenu(levelMenu);
                     }else if(action === "restart"){
                         resetLevel();
                         paused = false;
                     }else if(action === "quit"){
                         resetLevel();
                         comp.setMenu(startMenu)
+                    }else if(action.substring(0, 5) === "level"){
+                        resetLevel();
+                        loadLevel(cellMap, action).then(spawners => {
+                            spawnerSet = spawners;
+                            unpause();
+                        });
+                        
                     }
                 }else{
                     comp.setMenu(pauseMenu);

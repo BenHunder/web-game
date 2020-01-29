@@ -12,7 +12,8 @@ const creatureLocations = {
 }
 
 const levelLocations = {
-    "level1": "./assets/levels/testLevel1.json"
+    "level 1": "./assets/levels/testLevel1.json",
+    "level 2": "./assets/levels/testLevel2.json"
 }
 
 
