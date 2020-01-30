@@ -10,9 +10,15 @@ export class Spawner{
     }
 
     calculateSpawnNext(spawner){
+        //random number between 0 and the spawnrate
         let j = Math.random() * this.spawnRate;
+
+        //shift number back half of spawnrate
         j = j - (this.spawnRate/2);
-        return this.spawnRate + (j * this.spawnVariance);
+        
+        const spawnNext = Math.abs(this.spawnRate + (j * this.spawnVariance));
+        console.log("spawn rate: " + this.spawnRate + " spawnNext: " + spawnNext);
+        return spawnNext;
     }
 
     update(deltaTime){

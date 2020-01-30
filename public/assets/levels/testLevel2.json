@@ -15,7 +15,12 @@
         {
             "type": "mushboy",
             "spawnRate": 1,
-            "spawnVariance": 0.8
+            "spawnVariance": 4
+        },
+        {
+            "type": "mushboy",
+            "spawnRate": 3,
+            "spawnVariance": 3
         }
     ]
 }
