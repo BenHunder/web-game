@@ -264,7 +264,6 @@ function start(comp){
             if(player1.health <= 0 || game.timer <= 0){
                 comp.menu = loseMenu;
                 pause();
-                resetLevel();
             }
         }else{
             comp.draw(canvas);

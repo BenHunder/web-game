@@ -37,8 +37,19 @@ export default class Menu extends Layer{
     }
 
     draw(context){
+
+        //add white background
+        context.globalAlpha = 0.8;
+        context.fillStyle = "white";
+        const w = context.canvas.width;
+        const h = context.canvas.height;
+        context.fillRect(0,45, w, h-90);
+        context.globalAlpha = 1;
+
+        //print header
         this.fontLarge.printCentered (this.header, context, 320, 75);
 
+        //print options
         this.options.forEach((option, index) => {
             const x = this.x + this.margin;
             const y = this.y + this.margin + this.font.charHeight * index * 2;

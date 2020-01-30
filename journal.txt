@@ -53,3 +53,9 @@
 -added larger font for heading, might want to add two font sizes in the same font class?
 -main menu and quit function
 -TODO: 100 vs 99 timer on start screen
+
+---Wednesday, Jan 29, 2020---
+-level selection
+-menus background
+-TODO: revisit variance to be more like tontie -- less regular, more gaps, then 3 come at once, then a pause, etc.
+
