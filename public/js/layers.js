@@ -68,6 +68,9 @@ export function createLevelMenu(font, fontLarge){
                 'label': 'level 2'
             },
             {
+                'label': 'level 3'
+            },
+            {
                 'label': 'quit'
             }
         ]

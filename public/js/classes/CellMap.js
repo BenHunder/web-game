@@ -114,7 +114,7 @@ export default class CellMap{
         ]
     }
 
-    cellsAdjacentTo(cell){
+    adjacentTo(cell){
         return [
             this.upperLeft(cell),
             this.above(cell),
@@ -124,7 +124,11 @@ export default class CellMap{
             this.lowerLeft(cell),
             this.below(cell),
             this.lowerRight(cell),
-        ]
+        ].filter((item) => item != null)
+    }
+
+    availableAdjacentTo(cell){
+        return this.adjacentTo(cell).filter(cell => !cell.isActive);
     }
 
     allCells(){

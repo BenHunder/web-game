@@ -13,7 +13,8 @@ const creatureLocations = {
 
 const levelLocations = {
     "level 1": "./assets/levels/testLevel1.json",
-    "level 2": "./assets/levels/testLevel2.json"
+    "level 2": "./assets/levels/testLevel2.json",
+    "level 3": "./assets/levels/testLevel3.json"
 }
 
 
@@ -110,7 +111,7 @@ export function loadLevel(cellMap, levelName){
             promisesArray.push( 
                 loadCreature(spawner.type)
                 .then( creatureFactory => {
-                    const newSpawner = new Spawner(cellMap, creatureFactory, spawner.spawnRate, spawner.spawnVariance);
+                    const newSpawner = new Spawner(cellMap, creatureFactory, spawner.spawnRate, spawner.spawnVariance, spawner.spawnCluster);
                     return newSpawner;
                 })
             );

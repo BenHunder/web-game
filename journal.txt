@@ -60,3 +60,7 @@
 -TODO: revisit variance to be more like tontie -- less regular, more gaps, then 3 come at once, then a pause, etc.
 -experimenting with above item in level2.json
 
+---Sunday, Feb 2, 2020---
+-spawn cluster
+-
+

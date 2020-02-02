@@ -132,7 +132,6 @@ async function initialize(){
 
     return Promise.all([
         //loadJson('/assets/levels/testSpawnerObject.json'),
-        loadLevel(cellMap, "level 1"),
         loadSounds(soundNames),
         createLayer1(cellMap),
         createLayer2(cellMap),
@@ -146,9 +145,8 @@ async function initialize(){
         createLoseMenu(font, fontLarge),
         createWinMenu(font, fontLarge)
     ])
-    .then(([spawners, sndBrd, layer1, layer2, layer3, layer4, layer5, dashboardLayer, sMenu, vMenu, pMenu, lMenu, wMenu]) => {
+    .then(([sndBrd, layer1, layer2, layer3, layer4, layer5, dashboardLayer, sMenu, vMenu, pMenu, lMenu, wMenu]) => {
         globalSoundBoard = sndBrd;
-        spawnerSet = spawners;
 
         const comp = new Compositor();
         
