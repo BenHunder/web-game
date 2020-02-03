@@ -131,6 +131,25 @@ export default class CellMap{
         return this.adjacentTo(cell).filter(cell => !cell.isActive);
     }
 
+    //returns an array of max length n (could be less) of random cells adjacent to cell
+    randomAdjacentTo(cell, n){
+        let cells = [];
+
+        let possibleCells = this.availableAdjacentTo(cell);
+        for(let i = 0; i < n; i++){
+            if(possibleCells.length > 0){
+                let r = getRandomInt(possibleCells.length);
+                const newSpawn = possibleCells.splice(r, 1);
+                cells.push(newSpawn[0]);
+            }else{
+                //not enough available adjecent spaces, return as many as possible
+                break;
+            }
+        }
+
+        return cells;
+    }
+
     allCells(){
         return Array.from(this.letterMap);
     }

@@ -62,5 +62,9 @@
 
 ---Sunday, Feb 2, 2020---
 -spawn cluster
--
+-TODO: "cell: {i:9, j:2} bug" the cluster spawn code is causing a bug sometimes, run level with bunbun to reproduce
+-TODO: tiles that show statuses
+-TODO: attack animations
+-TODO: implement protect
+-TODO: rename jsons to -frameData.json
 

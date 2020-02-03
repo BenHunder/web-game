@@ -47,23 +47,13 @@ export class Spawner{
     spawnMultiple(){
         const firstCell = this.cellMap.randomAvailableCell();
         if(firstCell){
-            let spawns = [firstCell];
+            const spawns = this.cellMap.randomAdjacentTo(firstCell, this.spawnCluster);
 
-            let possibleSpawns = this.cellMap.availableAdjacentTo(firstCell);
-            for(let i = 0; i < this.spawnCluster; i++){
-                if(possibleSpawns.length > 0){
-                    let r = getRandomInt(possibleSpawns.length);
-                    const newSpawn = possibleSpawns.splice(r, 1);
-                    spawns.push(newSpawn[0]);
-                }else{
-                    break;
-                }
-            }
+            firstCell.spawnNew(this.creatureFactory.create());
             spawns.forEach(cell => {
                 console.log({cell});
                 cell.spawnNew(this.creatureFactory.create());
             });
-                
         }
     }
 }
