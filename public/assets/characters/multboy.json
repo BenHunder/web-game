@@ -1,5 +1,5 @@
 {
-    "name": "mushboy",
+    "name": "multboy",
     "height": 40,
     "width": 32,
     "spriteSheetLocation": "/assets/img/sprites/mushboy.png",
@@ -11,7 +11,7 @@
         }
     ],
     "attributes": {
-        "health": 20,
+        "health": 10,
         "traits": [
             "superGrowth", 
             "poisonPunch"

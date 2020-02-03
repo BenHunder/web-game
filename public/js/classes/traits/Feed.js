@@ -1,8 +1,8 @@
-import Trait from '../Trait.js';
-import {globalSoundBoard} from '../main.js';
+import Trait from './Trait.js';
+import {globalSoundBoard} from '../../main.js';
 
 //TODO this is temporary just to test the multiply function
-import {cellMap} from '../main.js';
+import {cellMap} from '../../main.js';
 
 export default class Feed extends Trait {
     constructor(cell){

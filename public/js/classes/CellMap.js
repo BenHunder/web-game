@@ -1,5 +1,5 @@
-import { Vec2 } from "./math.js";
-import {getRandomInt} from './math.js';
+import { Vec2 } from "../math.js";
+import {getRandomInt} from '../math.js';
 
 //im sure there are better ways to do this, but this makes sense to me at this moment so, I'm rolling with it.
 //cellMap contains a map so you can access cells by their corresponding letter (the key) and it contains a two dimensional array (this.grid) so cells can be accessed by x,y coordinates and math can be done to get neightboring cells
@@ -114,7 +114,7 @@ export default class CellMap{
         ]
     }
 
-    cellsAdjacentTo(cell){
+    adjacentTo(cell){
         return [
             this.upperLeft(cell),
             this.above(cell),
@@ -124,7 +124,30 @@ export default class CellMap{
             this.lowerLeft(cell),
             this.below(cell),
             this.lowerRight(cell),
-        ]
+        ].filter((item) => item != null)
+    }
+
+    availableAdjacentTo(cell){
+        return this.adjacentTo(cell).filter(cell => !cell.isActive);
+    }
+
+    //returns an array of max length n (could be less) of random cells adjacent to cell
+    randomAdjacentTo(cell, n){
+        let cells = [];
+
+        let possibleCells = this.availableAdjacentTo(cell);
+        for(let i = 0; i < n; i++){
+            if(possibleCells.length > 0){
+                let r = getRandomInt(possibleCells.length);
+                const newSpawn = possibleCells.splice(r, 1);
+                cells.push(newSpawn[0]);
+            }else{
+                //not enough available adjecent spaces, return as many as possible
+                break;
+            }
+        }
+
+        return cells;
     }
 
     allCells(){

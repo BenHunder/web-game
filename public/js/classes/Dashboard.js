@@ -2,15 +2,14 @@ import Font from './Font.js';
 import Layer from './Layer.js';
 
 export default class Dashboard extends Layer{
-    constructor(zIndex, font, player){
+    constructor(zIndex, font, player, game){
         super(zIndex);
         this.font = font;
 
         this.margin = 10;
 
         this.player = player;
-        this.timer = 100;
-        this.level = 1;
+        this.game = game;
     }
 
     draw(context){
@@ -31,7 +30,7 @@ export default class Dashboard extends Layer{
 
     //draws in the top right corner
     drawTimer(context){
-        const string = 'time: ' + String(Math.floor(this.timer));
+        const string = 'time: ' + String(Math.floor(this.game.timer));
         const x = context.canvas.width - string.length * this.font.charWidth - this.margin;
         const y = context.canvas.height - this.font.charHeight - this.margin;
 
@@ -40,7 +39,7 @@ export default class Dashboard extends Layer{
 
     //draws in the bottom left corner
     drawLevel(context){
-        const string = 'level: ' + String(this.level);
+        const string = 'level: ' + String(this.game.level);
         const x = 10;
         const y = context.canvas.height - this.font.charHeight - this.margin;
 
@@ -57,6 +56,6 @@ export default class Dashboard extends Layer{
     }
 
     update(deltaTime){
-        this.timer -= deltaTime;
+        this.game.timer -= deltaTime;
     }
 }

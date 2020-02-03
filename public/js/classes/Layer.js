@@ -1,6 +1,3 @@
-import {loadImage} from "./loaders.js";
-import SpriteSheet from "./SpriteSheet.js";
-
 export default class Layer{
     constructor(zIndex, buffer, cells){
         this.zIndex = zIndex;

@@ -1,18 +1,23 @@
-import SpriteSheet from './SpriteSheet.js';
-import SoundBoard from './SoundBoard.js';
-import { CreatureFactory } from './CreatureFactory.js';
-import { Spawner } from './Spawner.js';
-import Font from './Font.js';
+import SpriteSheet from './classes/SpriteSheet.js';
+import SoundBoard from './classes/SoundBoard.js';
+import { CreatureFactory } from './classes/CreatureFactory.js';
+import { Spawner } from './classes/Spawner.js';
+import Font from './classes/Font.js';
 
 
 //TODO probably move or REMOVE later (maybe make all creature's file name their type.json, maybe keep it this way to use different character versions or something?)
 const creatureLocations = {
     "mushboy": "./assets/characters/mushboy.json",
+    "bunbun": "./assets/characters/bunbun.json",
+    "protector": "./assets/characters/protector.json",
     "plant": "./assets/characters/plant.json"
 }
 
 const levelLocations = {
-    "level1": "./assets/levels/testLevel1.json"
+    "level 1": "./assets/levels/testLevel1.json",
+    "level 2": "./assets/levels/testLevel2.json",
+    "level 3": "./assets/levels/testLevel3.json",
+    "level 4": "./assets/levels/testLevel4.json"
 }
 
 
@@ -109,7 +114,7 @@ export function loadLevel(cellMap, levelName){
             promisesArray.push( 
                 loadCreature(spawner.type)
                 .then( creatureFactory => {
-                    const newSpawner = new Spawner(cellMap, creatureFactory, spawner.spawnRate, spawner.spawnVariance);
+                    const newSpawner = new Spawner(cellMap, creatureFactory, spawner.spawnRate, spawner.spawnVariance, spawner.spawnCluster);
                     return newSpawner;
                 })
             );

@@ -1,12 +1,14 @@
-import Compositor from './Compositor.js';
+import Compositor from './classes/Compositor.js';
 import {loadLevel, loadSounds, loadFont} from './loaders.js';
-import {createLayer1, createLayer2, createLayer3, createLayer4, createLayer5, createPauseMenuLayer, createAllCells, createDashboardLayer} from './layers.js';
-import Timer from './Timer.js';
-import Controller from "./Controller.js";
-import Cell from './Cell.js';
-import Player from './Player.js';
-import Weapon from './Weapon.js';
-import Food from './Food.js';
+import {createLayer1, createLayer2, createLayer3, createLayer4, createLayer5, createAllCells, createDashboardLayer, createStartMenu, createLevelMenu, createPauseMenu, createLoseMenu, createWinMenu} from './layers.js';
+import Timer from './classes/Timer.js';
+import Controller from "./classes/Controller.js";
+import Cell from './classes/Cell.js';
+import Player from './classes/Player.js';
+import Weapon from './classes/Weapon.js';
+import Food from './classes/Food.js';
+import Game from './classes/Game.js';
+
  
 let log = console.log;
 const canvas = document.getElementById('gameCanvas').getContext('2d');
@@ -82,6 +84,12 @@ const fontData = [
         'charHeight': 24
     },
     {
+        'name': 'manaspace-large',
+        'location': '../assets/img/fonts/manaspace/manaspace-large.png',
+        'charWidth': 24,
+        'charHeight': 36
+    },
+    {
         'name': 'lunchtime',
         'location': '../assets/img/fonts/lunchtime/lunchtime.png',
         'charWidth': 18,
@@ -90,8 +98,13 @@ const fontData = [
 ]
 
 let player1;
-let paused = false;
-let pauseOptions = [togglePause, resetMap];
+let game;
+let startMenu;
+let levelMenu;
+let pauseMenu;
+let loseMenu;
+let winMenu;
+let paused = true;
 let pauseIndex = 0;
 let onWeapon = true;
 function toggleWeapon(){
@@ -100,34 +113,40 @@ function toggleWeapon(){
 function togglePause(){
     paused = !paused;
 }
+function pause(){
+    paused = true;
+}
+function unpause(){
+    paused = false;
+}
 
 
 
 async function initialize(){
     cellMap = await createAllCells();
     const font = await loadFont(fontData[0]);
+    const fontLarge = await loadFont(fontData[1]);
 
-    player1 = new Player();
-    const basicWeapon = new Weapon("basicWeapon", 10);
-    const basicFood = new Food('basicFood', 10);
-    player1.weapon = basicWeapon;
-    player1.food = basicFood;
+    initializePlayer();
+    initializeGame();
 
     return Promise.all([
         //loadJson('/assets/levels/testSpawnerObject.json'),
-        loadLevel(cellMap, "level1"),
         loadSounds(soundNames),
         createLayer1(cellMap),
         createLayer2(cellMap),
         createLayer3(cellMap),
         createLayer4(),
         createLayer5(),
-        createDashboardLayer(font, player1),
-        createPauseMenuLayer(font),
+        createDashboardLayer(font, player1, game),
+        createStartMenu(font, fontLarge),
+        createLevelMenu(font, fontLarge),
+        createPauseMenu(font, fontLarge),
+        createLoseMenu(font, fontLarge),
+        createWinMenu(font, fontLarge)
     ])
-    .then(([spawners, sndBrd, layer1, layer2, layer3, layer4, layer5, dashboardLayer, pauseLayer]) => {
+    .then(([sndBrd, layer1, layer2, layer3, layer4, layer5, dashboardLayer, sMenu, vMenu, pMenu, lMenu, wMenu]) => {
         globalSoundBoard = sndBrd;
-        spawnerSet = spawners;
 
         const comp = new Compositor();
         
@@ -137,7 +156,13 @@ async function initialize(){
         comp.layers.push(layer4);
         comp.layers.push(layer5);
         comp.layers.push(dashboardLayer);
-        comp.setPauseLayer(pauseLayer);
+        console.log({comp})
+        startMenu = sMenu;
+        levelMenu = vMenu;
+        pauseMenu = pMenu;
+        loseMenu = lMenu;
+        winMenu = wMenu;
+        comp.setMenu(startMenu);
     
         const input = new Controller();
 
@@ -149,29 +174,48 @@ async function initialize(){
             }
         });
 
-        // enter pauses and unpauses
+        // enter pauses and selects pauseMenu options
         input.setMapping(13, keyState => {
             if(keyState){
-                togglePause();
+                if(paused){
+                    let action = comp.menu.selectedOption();
+                    if(action === "resume"){
+                        unpause();
+                    }else if(action === "start"){
+                        comp.setMenu(levelMenu);
+                    }else if(action === "restart"){
+                        resetLevel();
+                        paused = false;
+                    }else if(action === "quit"){
+                        resetLevel();
+                        comp.setMenu(startMenu)
+                    }else if(action.substring(0, 5) === "level"){
+                        resetLevel();
+                        loadLevel(cellMap, action).then(spawners => {
+                            spawnerSet = spawners;
+                            unpause();
+                        });
+                        
+                    }
+                }else{
+                    comp.setMenu(pauseMenu);
+                    pause();
+                }
             }
         });
 
-        // down arrow switches menu option (changes enter key to reset then, back to toggle pause)
-        //TODO create an array of pause menu options that arrows will cycle through
         input.setMapping(40, keyState => {
             if(keyState){
                 if(paused){
-                    input.setMapping(13, keyState => {
-                        if(keyState){
-                            resetMap(); 
-                            togglePause();
-                            input.setMapping(13, keyState => {
-                                if(keyState){
-                                    togglePause();
-                                }
-                            });
-                        }
-                    });
+                    comp.menu.scrollDown();
+                }
+            }
+        });
+
+        input.setMapping(38, keyState => {
+            if(keyState){
+                if(paused){
+                    comp.menu.scrollUp();
                 }
             }
         });
@@ -189,7 +233,9 @@ async function initialize(){
             const cell = cellMap.get(key);
             input.setMapping(keyCodes[n], keyState => {
                 if(keyState){
-                    cell.interact(onWeapon ? player1.weapon : player1.food, player1);
+                    if(!paused){
+                        cell.interact(onWeapon ? player1.weapon : player1.food, player1);
+                    }
                 }else{
                     cell.released();
                 }
@@ -212,8 +258,14 @@ function start(comp){
             spawnerSet.forEach( spawner => spawner.update(deltaTime));
             comp.update(deltaTime);
             comp.draw(canvas);
+
+            if(player1.health <= 0 || game.timer <= 0){
+                comp.menu = loseMenu;
+                pause();
+            }
         }else{
-            comp.drawPauseLayer(canvas);
+            comp.draw(canvas);
+            comp.drawMenu(canvas);
         }
     }
     
@@ -222,10 +274,27 @@ function start(comp){
 
 initialize().then((comp) => start(comp));
 
-function resetMap(){
-    cellMap.forEach(cell => {
+function initializePlayer(){
+    player1 = new Player();
+    const basicWeapon = new Weapon("basicWeapon", 10);
+    const basicFood = new Food('basicFood', 10);
+    player1.weapon = basicWeapon;
+    player1.food = basicFood;
+}
+
+function initializeGame(){
+    game = new Game();
+
+}
+
+function resetLevel(){
+    cellMap.allCells().forEach(([name, cell]) => {
         cell.reset();
     });
-    paused = false;
+
+    player1.reset();
+    game.reset();
 }
+
+
 

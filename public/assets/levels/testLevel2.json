@@ -1,5 +1,10 @@
 {
     "timeLimit": 30,
+    "keyboard": 
+        {
+            "layout": "mac-qwerty",
+            "location": "/layouts/mac-querty"
+        },
     "plants":
         {
             "type": "standardBush",
@@ -9,8 +14,13 @@
     "spawners": [
         {
             "type": "mushboy",
-            "spawnRate": 7,
-            "spawnVariance": 1
+            "spawnRate": 1,
+            "spawnVariance": 4
+        },
+        {
+            "type": "mushboy",
+            "spawnRate": 3,
+            "spawnVariance": 3
         }
     ]
 }

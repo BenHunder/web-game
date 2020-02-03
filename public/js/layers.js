@@ -1,12 +1,12 @@
 import { loadImage } from './loaders.js';
 import { loadFont } from './loaders.js';
-import Cell from './Cell.js';
-import CellMap from './CellMap.js'
+import Cell from './classes/Cell.js';
+import CellMap from './classes/CellMap.js'
 import { Vec2 } from './math.js';
-import Layer from './Layer.js';
-import Font from './Font.js';
-import Dashboard from './Dashboard.js'
-import PauseMenu from './PauseMenu.js';
+import Layer from './classes/Layer.js';
+import Font from './classes/Font.js';
+import Dashboard from './classes/Dashboard.js'
+import Menu from './classes/Menu.js';
 
 // var gameCanvas = document.getElementById('gameCanvas');
 // const gameWidth = gameCanvas.width;
@@ -30,19 +30,111 @@ export function createBackgroundLayer(){
 }
 
 //right now this functinon is not asynchronous, but it probably will be because icons and other images will be added
-export function createDashboardLayer(font, player){
+export function createDashboardLayer(font, player, game){
  
-    return new Dashboard(5, font, player);
+    return new Dashboard(5, font, player, game);
 }
 
 //right now this functinon is not asynchronous, but it probably will be because icons and other images will be added
-export function createPauseMenuLayer(font){
+export function createStartMenu(font, fontLarge){
     const buffer = document.createElement('canvas');
     buffer.width = gameWidth;
     buffer.height = gameHeight;
 
     return loadImage('/assets/img/ui/PauseScreenMockUp.png').then(img => {
-        return new PauseMenu(6, font);
+        let options = [
+            {
+                'label': 'start'
+            },
+            {
+                'label': 'settings'
+            }
+        ]
+        return new Menu(font, fontLarge, 'GAME TITLE', options);
+    });
+}
+
+export function createLevelMenu(font, fontLarge){
+    const buffer = document.createElement('canvas');
+    buffer.width = gameWidth;
+    buffer.height = gameHeight;
+
+    return loadImage('/assets/img/ui/PauseScreenMockUp.png').then(img => {
+        let options = [
+            {
+                'label': 'level 4'
+            },
+            {
+                'label': 'level 1'
+            },
+            {
+                'label': 'level 2'
+            },
+            {
+                'label': 'level 3'
+            },
+            {
+                'label': 'quit'
+            }
+        ]
+        return new Menu(font, fontLarge, 'SELECT LEVEL', options);
+    });
+}
+
+export function createPauseMenu(font, fontLarge){
+    const buffer = document.createElement('canvas');
+    buffer.width = gameWidth;
+    buffer.height = gameHeight;
+
+    return loadImage('/assets/img/ui/PauseScreenMockUp.png').then(img => {
+        let options = [
+            {
+                'label': 'resume'
+            },
+            {
+                'label': 'restart'
+            },
+            {
+                'label': 'quit'
+            }
+        ]
+        return new Menu(font, fontLarge, 'PAUSED', options);
+    });
+}
+
+export function createLoseMenu(font, fontLarge){
+    const buffer = document.createElement('canvas');
+    buffer.width = gameWidth;
+    buffer.height = gameHeight;
+
+    return loadImage('/assets/img/ui/PauseScreenMockUp.png').then(img => {
+        let options = [
+            {
+                'label': 'restart'
+            },
+            {
+                'label': 'quit'
+            }
+        ]
+        return new Menu(font, fontLarge, 'YOU LOSE', options);
+    });
+}
+
+export function createWinMenu(font, fontLarge){
+    const buffer = document.createElement('canvas');
+    buffer.width = gameWidth;
+    buffer.height = gameHeight;
+
+    return loadImage('/assets/img/ui/PauseScreenMockUp.png').then(img => {
+        let options = [
+            {
+                'label': 'next'
+            },
+            {
+                'label': 'restart'
+            }
+        ]
+        return new Menu(font, fontLarge, 'YOU WIN', options);
     });
 }
 

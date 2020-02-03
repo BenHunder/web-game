@@ -27,6 +27,14 @@ export default class Font{
         });
     }
 
+    printCentered(text, context, x, y, scale=1){
+        const width = text.length * this.charWidth;
+        const xStart = x - width/2; 
+        [...text].forEach((char, index) => {
+            this.draw(char, context, xStart + index * this.charWidth * scale, y, scale);
+        });
+    }
+
     draw(char, context, x, y, scale){
         context.drawImage(this.spriteSheet.getBuffer(char), x, y, this.charWidth * scale, this.charHeight * scale);
     }
