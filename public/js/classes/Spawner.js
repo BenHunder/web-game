@@ -32,6 +32,13 @@ export class Spawner{
         }
     }
 
+    // chance of spawning, triggered on each key press
+    spawnMaybe(){
+        if(Math.random() * 20 < this.spawnRate){
+            this.spawn();
+        }
+    }
+
     spawn(){
         if (this.spawnCluster > 1){
             this.spawnMultiple();

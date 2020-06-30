@@ -68,3 +68,7 @@
 -TODO: implement protect
 -TODO: rename jsons to -frameData.json
 
+---Monday, June 29, 2020---
+-game is not fun. need to go in a new direction
+-going to try focusing on turn based gameplay
+

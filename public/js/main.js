@@ -235,6 +235,7 @@ async function initialize(){
                 if(keyState){
                     if(!paused){
                         cell.interact(onWeapon ? player1.weapon : player1.food, player1);
+                        spawnerSet.forEach( spawner => spawner.spawnMaybe());
                     }
                 }else{
                     cell.released();
@@ -255,7 +256,7 @@ function start(comp){
     const timer = new Timer(1/60);
     timer.update = function update(deltaTime){
         if(!paused){
-            spawnerSet.forEach( spawner => spawner.update(deltaTime));
+            // spawnerSet.forEach( spawner => spawner.update(deltaTime));
             comp.update(deltaTime);
             comp.draw(canvas);
 
